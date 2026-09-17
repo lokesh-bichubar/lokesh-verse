@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 03 — Linked Lists | Data Structures | LOKESHVERSE</title>
+  <meta name="description" content="Linked lists explained: node structure, singly/doubly/circular lists, insertion and deletion with C code, arrays vs linked lists — Chapter 3 of Data Structures.">
+  <meta name="lv-university" content="Quantum University">
+  <meta name="lv-course" content="B.Tech CSE">
+  <meta name="lv-semester" content="Semester 1">
+  <meta name="lv-subject" content="Data Structures">
+  <meta name="lv-chapter-num" content="03">
+  <meta name="lv-chapter-title" content="Linked Lists">
+  <meta name="lv-note-types" content="FULL NOTES, IMPORTANT QUESTIONS">
+  <meta name="lv-keywords" content="linked list, node, pointer, singly linked list, doubly linked list, circular linked list, head, next, malloc, dynamic memory, traversal, insertion, deletion">
+  <meta property="og:title" content="Chapter 03 — Linked Lists">
+  <meta property="og:description" content="Nodes, pointers, and structures that grow at runtime — plus the arrays-vs-lists showdown.">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+  <link rel="stylesheet" href="../../css/style.css">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home"},
+    {"@type":"ListItem","position":2,"name":"Data Structures"},
+    {"@type":"ListItem","position":3,"name":"Chapter 03 — Linked Lists"}
+  ]}
+  </script>
+</head>
+<body data-page="chapter" data-root="../../">
+  <a class="skip-link" href="#notes">SKIP TO NOTES ↓</a>
+
+  <header class="site-header">
+    <div class="header-inner container">
+      <a class="logo" href="../../index.html" aria-label="LOKESHVERSE — home">
+        <span class="logo-a">LOKESH</span><span class="logo-b">VERSE</span>
+      </a>
+      <nav class="site-nav" id="siteNav" aria-label="Main navigation">
+        <a class="nav-link" href="../../index.html">HOME</a>
+        <a class="nav-link" href="../../index.html#explore-notes" aria-current="page">NOTES</a>
+        <a class="nav-link" href="../../search.html">SEARCH</a>
+        <a class="nav-link" href="../../about.html">ABOUT</a>
+      </nav>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="siteNav" aria-label="Toggle menu">
+        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main" class="container">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="../../index.html">HOME</a><span class="sep">/</span>
+      <a href="index.html">DATA STRUCTURES</a><span class="sep">/</span><span>CHAPTER 03</span>
+    </nav>
+
+    <header class="chapter-head">
+      <p class="sticker sticker-accent">CHAPTER 03 • DATA STRUCTURES</p>
+      <h1 class="chapter-title">LINKED LISTS</h1>
+      <div class="chips">
+        <span class="chip">QUANTUM UNIVERSITY</span>
+        <span class="chip">B.TECH CSE</span>
+        <span class="chip">SEMESTER 01</span>
+        <span class="chip readtime" data-readtime></span>
+      </div>
+      <div class="note-tags">
+        <span class="tag tag-full">FULL NOTES</span>
+        <span class="tag tag-questions">IMPORTANT QUESTIONS</span>
+      </div>
+    </header>
+
+    <article class="notes" data-toc="true" id="notes">
+
+      <section class="notes-section">
+        <h2>3.1 What is a Linked List?</h2>
+        <p>Arrays are a row of lockers: one block, fixed size, and rearranging anything means
+          dragging lockers around. A linked list is a <strong>treasure hunt</strong>: each item
+          knows where the next item lives, and the items can be scattered anywhere in memory.</p>
+
+        <div class="component def">
+          <span class="component-label">DEFINITION</span>
+          <p>A <strong>linked list</strong> is a <strong>dynamic</strong> linear data structure
+            in which elements (<strong>nodes</strong>) are stored at arbitrary memory locations
+            and connected by <strong>pointers</strong>. Each node contains two parts:
+            <strong>data</strong> + a pointer to the <strong>next node</strong>.</p>
+        </div>
+
+        <figure class="diagram">
+          <svg viewBox="0 0 640 130" role="img" aria-label="Singly linked list: HEAD to node 12, node 7, node 99, NULL">
+            <rect x="6" y="38" width="66" height="36" fill="#101010"></rect>
+            <text x="39" y="61" font-family="monospace" font-size="14" font-weight="bold" fill="#F6EFE3" text-anchor="middle">HEAD</text>
+            <line x1="72" y1="56" x2="104" y2="56" stroke="#101010" stroke-width="4"></line>
+            <polygon points="104,50 116,56 104,62" fill="#101010"></polygon>
+            <g font-family="monospace" font-weight="bold" text-anchor="middle">
+              <rect x="118" y="30" width="112" height="52" fill="#FFFDF7" stroke="#101010" stroke-width="4"></rect>
+              <line x1="172" y1="30" x2="172" y2="82" stroke="#101010" stroke-width="4"></line>
+              <text x="145" y="61" font-size="16">12</text>
+              <text x="203" y="61" font-size="12" fill="#7B2FFF">next</text>
+              <rect x="290" y="30" width="112" height="52" fill="#E9DEFF" stroke="#101010" stroke-width="4"></rect>
+              <line x1="344" y1="30" x2="344" y2="82" stroke="#101010" stroke-width="4"></line>
+              <text x="317" y="61" font-size="16">7</text>
+              <text x="375" y="61" font-size="12" fill="#7B2FFF">next</text>
+              <rect x="462" y="30" width="112" height="52" fill="#FFFDF7" stroke="#101010" stroke-width="4"></rect>
+              <line x1="516" y1="30" x2="516" y2="82" stroke="#101010" stroke-width="4"></line>
+              <text x="489" y="61" font-size="16">99</text>
+              <text x="547" y="61" font-size="12" fill="#7B2FFF">next</text>
+            </g>
+            <line x1="230" y1="56" x2="276" y2="56" stroke="#101010" stroke-width="4"></line>
+            <polygon points="276,50 288,56 276,62" fill="#101010"></polygon>
+            <line x1="402" y1="56" x2="448" y2="56" stroke="#101010" stroke-width="4"></line>
+            <polygon points="448,50 460,56 448,62" fill="#101010"></polygon>
+            <line x1="574" y1="56" x2="606" y2="56" stroke="#101010" stroke-width="4"></line>
+            <polygon points="606,50 618,56 606,62" fill="#101010"></polygon>
+            <text x="618" y="61" font-family="monospace" font-size="13" font-weight="bold">∅</text>
+            <text x="118" y="112" font-family="monospace" font-size="12">2000</text>
+            <text x="290" y="112" font-family="monospace" font-size="12">3120</text>
+            <text x="462" y="112" font-family="monospace" font-size="12">8460</text>
+          </svg>
+          <figcaption>Fig 3.1 — A singly linked list. Nodes may live anywhere; pointers give the order.</figcaption>
+        </figure>
+
+        <div class="component remember">
+          <span class="component-label">REMEMBER</span>
+          <p><strong>If you lose the head pointer, you lose the entire list.</strong> There is
+            no index, no formula, no way back — the only entry point is <code>head</code>.
+            Guard it with your life.</p>
+        </div>
+      </section>
+
+      <section class="notes-section">
+        <h2>3.2 The Node Structure</h2>
+        <p>In C, a node is a <code>struct</code> that contains the data and a pointer to
+          another node of the same type — a self-referential structure:</p>
+
+        <figure class="code-block">
+          <div class="code-head">
+            <span class="code-lang">C</span>
+            <button class="copy-btn" type="button">COPY</button>
+          </div>
+          <pre><code data-lang="c">struct Node {
+    int data;              /* the payload            */
+    struct Node *next;     /* address of next node   */
+};
+
+/* create a node on the heap at runtime */
+struct Node *newNode(int value) {
+    struct Node *p = (struct Node *) malloc(sizeof(struct Node));
+    p-&gt;data = value;
+    p-&gt;next = NULL;
+    return p;
+}</code></pre>
+        </figure>
+
+        <p>Because nodes come from <code>malloc</code> (the heap) one at a time, the list can
+          grow and shrink while the program runs — that's the "dynamic" in dynamic data
+          structure.</p>
+      </section>
+
+      <section class="notes-section">
+        <h2>3.3 Types of Linked Lists</h2>
+        <div class="table-scroll">
+          <table class="notes-table">
+            <caption>Table 3.1 — The four flavours</caption>
+            <thead>
+              <tr><th>Type</th><th>Each node has</th><th>Last node points to</th><th>Use case</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Singly linked</td><td>data + next</td><td>NULL</td><td>Simple stacks/queues</td></tr>
+              <tr><td>Doubly linked</td><td>data + next + prev</td><td>NULL (prev of head also NULL)</td><td>Browser history, undo, text editors</td></tr>
+              <tr><td>Circular</td><td>data + next</td><td>Back to HEAD</td><td>Round-robin scheduling, music playlists</td></tr>
+              <tr><td>Doubly circular</td><td>data + next + prev</td><td>Both directions loop</td><td>Media players, schedulers</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="component important">
+          <span class="component-label">IMPORTANT</span>
+          <p>In a <strong>doubly</strong> linked list you can walk backwards for free
+            (O(1) <code>prev</code>), but every node pays one extra pointer's memory and every
+            insert/delete must maintain <strong>two</strong> links instead of one. Nothing is
+            free in data structures.</p>
+        </div>
+      </section>
+
+      <section class="notes-section">
+        <h2>3.4 Operations</h2>
+
+        <h3>Traversal — O(n)</h3>
+        <p>Start at <code>head</code>, follow <code>next</code> until you hit NULL. There is
+          literally no other way to reach node #k:</p>
+        <figure class="code-block">
+          <div class="code-head">
+            <span class="code-lang">C</span>
+            <button class="copy-btn" type="button">COPY</button>
+          </div>
+          <pre><code data-lang="c">struct Node *p = head;
+while (p != NULL) {
+    printf("%d -&gt; ", p-&gt;data);
+    p = p-&gt;next;            /* hop to the next node */
+}
+printf("NULL\n");</code></pre>
+        </figure>
+
+        <h3>Insertion at the beginning — O(1)</h3>
+        <p>The cheapest linked-list superpower: a new node becomes the head by pointing at
+          the old head. No shifting, ever:</p>
+        <figure class="code-block">
+          <div class="code-head">
+            <span class="code-lang">C</span>
+            <button class="copy-btn" type="button">COPY</button>
+          </div>
+          <pre><code data-lang="c">void insertFront(struct Node **head, int value) {
+    struct Node *p = newNode(value);
+    p-&gt;next = *head;        /* new node points to old head */
+    *head = p;              /* new node IS the head now    */
+}</code></pre>
+        </figure>
+
+        <h3>Insertion at the end — O(n)</h3>
+        <p>Walk to the last node (the one whose <code>next</code> is NULL), then attach:</p>
+        <figure class="code-block">
+          <div class="code-head">
+            <span class="code-lang">C</span>
+            <button class="copy-btn" type="button">COPY</button>
+          </div>
+          <pre><code data-lang="c">void insertEnd(struct Node **head, int value) {
+    struct Node *p = newNode(value);
+    if (*head == NULL) { *head = p; return; }   /* empty list case */
+    struct Node *q = *head;
+    while (q-&gt;next != NULL)                     /* walk to last node */
+        q = q-&gt;next;
+    q-&gt;next = p;
+}</code></pre>
+        </figure>
+
+        <h3>Deletion — O(n) to find, O(1) to unlink</h3>
+        <p>Find the node's <em>previous</em> node, then reroute one pointer. The node itself
+          disappears from the chain without moving anything else:</p>
+        <figure class="code-block">
+          <div class="code-head">
+            <span class="code-lang">C</span>
+            <button class="copy-btn" type="button">COPY</button>
+          </div>
+          <pre><code data-lang="c">void deleteValue(struct Node **head, int value) {
+    struct Node *p = *head, *prev = NULL;
+
+    while (p != NULL &amp;&amp; p-&gt;data != value) {
+        prev = p;
+        p = p-&gt;next;
+    }
+    if (p == NULL) return;         /* value not found */
+
+    if (prev == NULL)
+        *head = p-&gt;next;          /* deleting the head */
+    else
+        prev-&gt;next = p-&gt;next;     /* skip over p       */
+
+    free(p);                       /* give memory back  */
+}</code></pre>
+        </figure>
+      </section>
+
+      <section class="notes-section">
+        <h2>3.5 Arrays vs Linked Lists</h2>
+        <div class="table-scroll">
+          <table class="notes-table">
+            <caption>Table 3.2 — The exam-favourite comparison</caption>
+            <thead>
+              <tr><th>Point</th><th>Array</th><th>Linked List</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Memory</td><td>Contiguous block</td><td>Scattered nodes + pointers</td></tr>
+              <tr><td>Size</td><td>Fixed at creation</td><td>Grows/shrinks at runtime</td></tr>
+              <tr><td>Access</td><td>O(1) by index</td><td>O(n) sequential only</td></tr>
+              <tr><td>Insert/delete</td><td>O(n) shifting</td><td>O(1) once located</td></tr>
+              <tr><td>Extra memory</td><td>None per element</td><td>1 pointer per node (2 for doubly)</td></tr>
+              <tr><td>Cache behaviour</td><td>Friendly</td><td>Unfriendly (random jumps)</td></tr>
+              <tr><td>Memory wastage</td><td>Reserved-but-unused slots</td><td>Only what's allocated</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="notes-section">
+        <h2>3.6 Applications</h2>
+        <ul>
+          <li><strong>Dynamic memory management</strong> — the OS free list is a linked list of free blocks.</li>
+          <li><strong>Implementing stacks &amp; queues</strong> (Chapter 04) without fixed capacity.</li>
+          <li><strong>Polynomial representation</strong> — each term is a node (coefficient, power, next).</li>
+          <li><strong>Music playlists / image viewers</strong> — next/previous navigation.</li>
+          <li><strong>Browser history</strong> — a doubly linked list of pages.</li>
+          <li><strong>Hash table chaining</strong> — collisions queue up as little linked lists.</li>
+        </ul>
+
+        <div class="component remember">
+          <span class="component-label">REMEMBER</span>
+          <p>Forgetting <code>free()</code> after deletion = a <strong>memory leak</strong>.
+            And dereferencing a freed node = undefined behaviour. In vivas, always mention
+            <em>"allocate with malloc, release with free"</em> — it signals you actually
+            understand heap memory.</p>
+        </div>
+      </section>
+
+      <section class="notes-section">
+        <h2>3.7 Chapter Keypoints</h2>
+        <div class="keypoints">
+          <div class="component keypoint">
+            <span class="component-label">KEY POINT</span>
+            <p>Node = <strong>data + pointer</strong>. List = nodes chained by pointers.</p>
+          </div>
+          <div class="component keypoint">
+            <span class="component-label">KEY POINT</span>
+            <p>No random access: reaching the k-th node costs <strong>O(k)</strong>.</p>
+          </div>
+          <div class="component keypoint">
+            <span class="component-label">KEY POINT</span>
+            <p>Insert/delete at a known position: <strong>O(1)</strong> — just rewire pointers.</p>
+          </div>
+          <div class="component keypoint">
+            <span class="component-label">KEY POINT</span>
+            <p>Circular list: last node's next = <strong>head</strong>. Doubly: every node remembers <strong>prev</strong>.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="notes-section">
+        <h2>3.8 IMPORTANT QUESTIONS</h2>
+        <div class="component exam">
+          <span class="component-label">IMPORTANT QUESTIONS</span>
+          <ol>
+            <li>What is a linked list? How does it differ from an array? (any five points)</li>
+            <li>Draw and explain the structure of a node for a singly and a doubly linked list.</li>
+            <li>Write a C program to create a singly linked list and traverse it.</li>
+            <li>Write functions to insert a node at (a) the beginning, (b) the end, (c) a given position.</li>
+            <li>Explain deletion of a node by value, covering the delete-the-head case.</li>
+            <li>What is a circular linked list? Where is it preferred over a singly linked list?</li>
+            <li>What are the advantages and disadvantages of a doubly linked list?</li>
+            <li>List four real-world applications of linked lists.</li>
+            <li>Why is searching in a linked list always O(n) even if it is sorted?</li>
+          </ol>
+        </div>
+      </section>
+    </article>
+
+    <!-- ALL CHAPTERS — rendered by main.js from js/chapters.js (auto-generated
+         from the subject page by tools/build-search.py). Same .chapter-row style
+         as the subject page; the chapter you are reading is highlighted. -->
+    <nav class="chapter-list-nav" data-chapters="data-structures" aria-label="All chapters of this subject"></nav>
+
+    <nav class="chapter-nav" aria-label="Chapter navigation">
+      <a class="chapter-nav-link prev" href="chapter-02.html">← PREVIOUS CHAPTER<small>02 — Arrays</small></a>
+      <a class="chapter-nav-link back" href="index.html">BACK TO SUBJECT<small>Data Structures</small></a>
+      <a class="chapter-nav-link next" href="chapter-04.html">NEXT CHAPTER →<small>04 — Stacks &amp; Queues</small></a>
+    </nav>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-marquee marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>LOKESHVERSE</span><span class="dot">●</span>
+        <span>NOTES, BUT MAKE THEM BRUTAL</span><span class="dot">●</span>
+        <span>ONE CHAPTER AT A TIME</span><span class="dot">●</span>
+        <span>LOKESHVERSE</span><span class="dot">●</span>
+        <span>NOTES, BUT MAKE THEM BRUTAL</span><span class="dot">●</span>
+        <span>ONE CHAPTER AT A TIME</span><span class="dot">●</span>
+      </div>
+    </div>
+    <div class="footer-grid container">
+      <section class="footer-block">
+        <h3 class="footer-label"><span class="live-dot" aria-hidden="true"></span>LIVE VISITORS</h3>
+        <p class="visitor-count"><span id="liveVisitorCount">—</span></p>
+        <p class="footer-note">Real-time count, straight from the database.<br>
+          Not configured yet? See <code>js/visitors.js</code> → README.</p>
+      </section>
+      <section class="footer-block">
+        <h3 class="footer-label">BUILT BY LOKESH</h3>
+        <p class="footer-bio">Student. Builder. Notes hoarder.</p>
+        <p class="footer-bio">A personal digital notebook that accidentally became a public library.</p>
+        <ul class="footer-links">
+          <li><a href="../../index.html">HOME</a></li>
+          <li><a href="../../index.html#explore-notes">NOTES</a></li>
+          <li><a href="../../search.html">SEARCH</a></li>
+          <li><a href="../../about.html">ABOUT</a></li>
+        </ul>
+      </section>
+      <section class="footer-block">
+        <h3 class="footer-label">🎧 LISTENING WHILE BUILDING THIS</h3>
+        <div class="spotify-frame" data-spotify-slot">
+          <noscript>Enable JavaScript to load the Spotify embed.</noscript>
+        </div>
+        <p class="footer-note">The playlist that powered the building of Lokeshverse.</p>
+      </section>
+    </div>
+    <div class="footer-bottom">
+      <div class="container footer-bottom-inner">
+        <p>© <span data-year>2026</span> LOKESHVERSE — NOTES, BUT MAKE THEM BRUTAL.</p>
+        <p class="footer-tagline">RAW HTML • THICK BORDERS • ZERO CORPORATE VIBES</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/config.js" defer></script>
+  <script src="../../js/chapters.js" defer></script>
+  <script src="../../js/main.js" defer></script>
+  <script src="../../js/visitors.js" defer></script>
+</body>
+</html>

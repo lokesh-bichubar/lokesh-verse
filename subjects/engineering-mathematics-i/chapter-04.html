@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 04 — Matrices &amp; Determinants | Engineering Mathematics – I | LOKESHVERSE</title>
+  <meta name="description" content="Matrices and determinants explained: types of matrices, matrix operations, determinant properties, inverse via adjoint, rank, and solving systems of equations with Cramer's rule — Chapter 4 of Engineering Mathematics – I.">
+  <meta name="lv-university" content="Quantum University">
+  <meta name="lv-course" content="B.Tech CSE">
+  <meta name="lv-semester" content="Semester 1">
+  <meta name="lv-subject" content="Engineering Mathematics – I">
+  <meta name="lv-chapter-num" content="04">
+  <meta name="lv-chapter-title" content="Matrices &amp; Determinants">
+  <meta name="lv-note-types" content="FULL NOTES, ONE-SHOT REVISION, IMPORTANT QUESTIONS">
+  <meta name="lv-keywords" content="matrix, matrices, determinant, transpose, symmetric, skew symmetric, singular, inverse, adjoint, rank, cramer's rule, system of equations, consistency, identity matrix, diagonal matrix">
+  <meta property="og:title" content="Chapter 04 — Matrices &amp; Determinants">
+  <meta property="og:description" content="Matrix types, determinant properties, inverses, rank, and Cramer's rule.">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+  <link rel="stylesheet" href="../../css/style.css">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home"},
+    {"@type":"ListItem","position":2,"name":"Engineering Mathematics – I"},
+    {"@type":"ListItem","position":3,"name":"Chapter 04 — Matrices & Determinants"}
+  ]}
+  </script>
+</head>
+<body data-page="chapter" data-root="../../">
+  <a class="skip-link" href="#notes">SKIP TO NOTES ↓</a>
+
+  <header class="site-header">
+    <div class="header-inner container">
+      <a class="logo" href="../../index.html" aria-label="LOKESHVERSE — home">
+        <span class="logo-a">LOKESH</span><span class="logo-b">VERSE</span>
+      </a>
+      <nav class="site-nav" id="siteNav" aria-label="Main navigation">
+        <a class="nav-link" href="../../index.html">HOME</a>
+        <a class="nav-link" href="../../index.html#explore-notes" aria-current="page">NOTES</a>
+        <a class="nav-link" href="../../search.html">SEARCH</a>
+        <a class="nav-link" href="../../about.html">ABOUT</a>
+      </nav>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="siteNav" aria-label="Toggle menu">
+        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main" class="container">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="../../index.html">HOME</a><span class="sep">/</span>
+      <a href="index.html">ENGINEERING MATHEMATICS – I</a><span class="sep">/</span><span>CHAPTER 04</span>
+    </nav>
+
+    <header class="chapter-head">
+      <p class="sticker sticker-accent">CHAPTER 04 • ENGINEERING MATHEMATICS – I</p>
+      <h1 class="chapter-title">MATRICES &amp; DETERMINANTS</h1>
+      <div class="chips">
+        <span class="chip">QUANTUM UNIVERSITY</span>
+        <span class="chip">B.TECH CSE</span>
+        <span class="chip">SEMESTER 01</span>
+        <span class="chip readtime" data-readtime></span>
+      </div>
+      <div class="note-tags">
+        <span class="tag tag-full">FULL NOTES</span>
+        <span class="tag tag-oneshot">ONE-SHOT REVISION</span>
+        <span class="tag tag-questions">IMPORTANT QUESTIONS</span>
+      </div>
+    </header>
+
+    <article class="notes" data-toc="true" id="notes">
+
+      <section class="notes-section">
+        <h2>4.1 What is a Matrix?</h2>
+        <div class="component def">
+          <span class="component-label">DEFINITION</span>
+          <p>A <strong>matrix</strong> is a rectangular array of numbers arranged in
+            <strong>m rows and n columns</strong>. Its <strong>order</strong> is m × n, and
+            its entries are written a<sub>ij</sub> — row index first, column index second.</p>
+        </div>
+        <p>A matrix is <em>not</em> a number — it's a container with its own algebra. You
+          can't "solve" a matrix; you transform, combine and factor it. (A
+          <strong>determinant</strong> |A|, on the other hand, is a single number computed
+          from a square matrix — that distinction is worth a mark by itself.)</p>
+      </section>
+
+      <section class="notes-section">
+        <h2>4.2 Types of Matrices</h2>
+        <div class="table-scroll">
+          <table class="notes-table">
+            <caption>Table 4.1 — The zoo, in exam order</caption>
+            <thead>
+              <tr><th>Type</th><th>Defining property</th><th>Example (3×3)</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Row / Column</td><td>One row / one column</td><td>[1 2 3]</td></tr>
+              <tr><td>Square</td><td>m = n</td><td>3×3</td></tr>
+              <tr><td>Diagonal</td><td>Square; zeros except main diagonal</td><td>diag(2, 5, 7)</td></tr>
+              <tr><td>Scalar</td><td>Diagonal with equal entries</td><td>diag(k, k, k)</td></tr>
+              <tr><td>Identity (I)</td><td>Scalar with k = 1 — the "1" of matrices</td><td>diag(1, 1, 1)</td></tr>
+              <tr><td>Zero / Null (O)</td><td>All entries 0 — the "0"</td><td>—</td></tr>
+              <tr><td>Upper / Lower triangular</td><td>Zeros below / above diagonal</td><td>—</td></tr>
+              <tr><td>Transpose (Aᵀ)</td><td>Rows ↔ columns of A</td><td>(Aᵀ)ᵀ = A</td></tr>
+              <tr><td>Symmetric</td><td>Aᵀ = A (mirror across diagonal)</td><td>a<sub>ij</sub> = a<sub>ji</sub></td></tr>
+              <tr><td>Skew-symmetric</td><td>Aᵀ = −A → diagonal is all 0</td><td>a<sub>ij</sub> = −a<sub>ji</sub></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="component remember">
+          <span class="component-label">REMEMBER</span>
+          <p>Every square matrix splits as <strong>A = ½(A + Aᵀ) + ½(A − Aᵀ)</strong> —
+            a symmetric part plus a skew-symmetric part. And in a skew-symmetric matrix the
+            diagonal <strong>must be zero</strong> (a<sub>ii</sub> = −a<sub>ii</sub> forces
+            it). Both are classic 2-mark theory questions.</p>
+        </div>
+      </section>
+
+      <section class="notes-section">
+        <h2>4.3 Matrix Algebra</h2>
+        <ul>
+          <li><strong>Addition:</strong> same order only; add entry-wise. Commutative, associative.</li>
+          <li><strong>Scalar multiply:</strong> multiply every entry.</li>
+          <li><strong>Multiplication:</strong> A<sub>m×n</sub> × B<sub>n×p</sub> = C<sub>m×p</sub>.
+            Inner dimensions must match; entry c<sub>ij</sub> = (row i of A) · (column j of B).</li>
+        </ul>
+
+        <div class="component important">
+          <span class="component-label">IMPORTANT</span>
+          <p><strong>Matrix multiplication is NOT commutative:</strong> AB ≠ BA in general
+            (and sometimes only one of them even exists). It <em>is</em> associative and
+            distributive, and (AB)ᵀ = BᵀAᵀ — order reverses under transpose. Cancellation
+            is also illegal: AB = O does <strong>not</strong> imply A = O or B = O.</p>
+        </div>
+      </section>
+
+      <section class="notes-section">
+        <h2>4.4 Determinants</h2>
+        <div class="component formula">
+          <span class="component-label">FORMULA — 2×2</span>
+          <div class="formula-body">|A| = a d − b c</div>
+          <div class="formula-note">for [[a, b], [c, d]] — cross products, minus the anti-diagonal</div>
+        </div>
+        <div class="component formula">
+          <span class="component-label">FORMULA — 3×3 (expansion)</span>
+          <div class="formula-body">|A| = a(ei − fh) − b(di − fg) + c(dh − eg)</div>
+          <div class="formula-note">expand along any row/column; sign pattern is the checkerboard + − +</div>
+        </div>
+
+        <h3>Properties that do all the work</h3>
+        <ul>
+          <li>|Aᵀ| = |A| — rows and columns are interchangeable.</li>
+          <li>Swapping two rows (or columns) <strong>changes the sign</strong>.</li>
+          <li>Two identical rows/columns → |A| = 0.</li>
+          <li>Multiplying one row by k multiplies |A| by k (so |kA| = kⁿ|A| for n×n).</li>
+          <li>A row that is a multiple of another row → |A| = 0.</li>
+          <li>Adding a multiple of one row to another <strong>leaves |A| unchanged</strong>
+            — the engine of row-reduction.</li>
+          <li><strong>|AB| = |A|·|B|</strong> (same order square matrices).</li>
+          <li>Triangular matrix → |A| = product of diagonal entries.</li>
+        </ul>
+
+        <div class="component def">
+          <span class="component-label">DEFINITION</span>
+          <p>A square matrix is <strong>singular</strong> if |A| = 0, and
+            <strong>non-singular</strong> if |A| ≠ 0. Only non-singular matrices have
+            inverses.</p>
+        </div>
+      </section>
+
+      <section class="notes-section">
+        <h2>4.5 The Inverse of a Matrix</h2>
+        <div class="component formula">
+          <span class="component-label">FORMULA</span>
+          <div class="formula-body">A⁻¹ = adj(A) / |A| &nbsp;&nbsp;(exists ⟺ |A| ≠ 0)</div>
+          <div class="formula-note">adj(A) = transpose of the cofactor matrix</div>
+        </div>
+        <p>Cookbook for A⁻¹ (2×2 shortcut included):</p>
+        <ul>
+          <li><strong>2×2 shortcut:</strong> swap the diagonal, negate the off-diagonal,
+            divide by |A|. For [[a,b],[c,d]]: (1/(ad−bc))·[[d,−b],[−c,a]].</li>
+          <li><strong>General:</strong> build the cofactor matrix C (C<sub>ij</sub> =
+            (−1)<sup>i+j</sup>·M<sub>ij</sub>, where M<sub>ij</sub> is the minor — delete
+            row i, column j, take the determinant), transpose it to get adj(A), divide by
+            |A|.</li>
+        </ul>
+
+        <div class="component remember">
+          <span class="component-label">REMEMBER</span>
+          <p><strong>Order matters in the check:</strong> A·adj(A) = adj(A)·A = |A|·I. If
+            your exam answer doesn't satisfy A·A⁻¹ = I, it's wrong — the check takes 30
+            seconds and catches 90% of arithmetic slips.</p>
+        </div>
+      </section>
+
+      <section class="notes-section">
+        <h2>4.6 Rank of a Matrix</h2>
+        <div class="component def">
+          <span class="component-label">DEFINITION</span>
+          <p>The <strong>rank</strong> of a matrix A (written ρ(A)) is the order of the
+            largest non-zero <strong>minor</strong> — equivalently, the maximum number of
+            linearly independent rows (or columns).</p>
+        </div>
+        <p>Practical method: row-reduce to echelon form (zeros below the staircase); the rank
+          is the number of non-zero rows. Rank is invariant under row operations — that's
+          why reduction works.</p>
+      </section>
+
+      <section class="notes-section">
+        <h2>4.7 Solving Systems: AX = B</h2>
+        <p>The grand finale: a system of n linear equations in n unknowns is a single matrix
+          equation <strong>AX = B</strong>, and everything above was tooling for this.</p>
+
+        <div class="component formula">
+          <span class="component-label">CRAMER'S RULE</span>
+          <div class="formula-body">x₁ = |A₁|/|A| &nbsp;•&nbsp; x₂ = |A₂|/|A| &nbsp;•&nbsp; … &nbsp;•&nbsp; xₙ = |Aₙ|/|A|</div>
+          <div class="formula-note">Aᵢ = A with column i replaced by B · requires |A| ≠ 0</div>
+        </div>
+
+        <div class="component example">
+          <span class="component-label">EXAMPLE</span>
+          <h4>Problem</h4>
+          <p>Solve: 2x + y = 7 and 3x − y = 3 by Cramer's rule.</p>
+          <h4>Solution</h4>
+          <p>|A| = |[2 1; 3 −1]| = 2(−1) − 1(3) = −5</p>
+          <p>|A₁| = |[7 1; 3 −1]| = 7(−1) − 1(3) = −10 → x = −10/−5 = <strong>2</strong></p>
+          <p>|A₂| = |[2 7; 3 3]| = 2(3) − 7(3) = −15 → y = −15/−5 = <strong>3</strong></p>
+          <p>Check: 2(2) + 3 = 7 ✓ and 3(2) − 3 = 3 ✓. Always check — Cramer arithmetic
+            is where sign errors go to live.</p>
+        </div>
+
+        <h3>Consistency of a system</h3>
+        <div class="table-scroll">
+          <table class="notes-table">
+            <caption>Table 4.2 — The three possible worlds (for AX = B)</caption>
+            <thead>
+              <tr><th>Condition</th><th>System</th><th>Solutions</th><th>Geometry (2 vars)</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>|A| ≠ 0</td><td>Consistent</td><td>Exactly one: X = A⁻¹B</td><td>Lines intersect at a point</td></tr>
+              <tr><td>|A| = 0, (adj A)B ≠ O</td><td>Inconsistent</td><td>No solution</td><td>Parallel lines</td></tr>
+              <tr><td>|A| = 0, (adj A)B = O</td><td>Consistent</td><td>Infinitely many (use rank)</td><td>Coincident lines</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="component remember">
+          <span class="component-label">REMEMBER</span>
+          <p>Homogeneous systems <strong>AX = O</strong> are never inconsistent — X = 0 is
+            always a solution (the <em>trivial</em> one). Non-trivial solutions exist
+            <strong>iff |A| = 0</strong>. That one line is asked every single year in some
+            form.</p>
+        </div>
+      </section>
+
+      <section class="notes-section">
+        <h2>4.8 ONE-SHOT REVISION — 60-SECOND RECAP</h2>
+        <div class="keypoints">
+          <div class="component keypoint">
+            <span class="component-label">RECAP</span>
+            <p>Matrix = array (m×n). Determinant = <strong>one number</strong>, square matrices only.</p>
+          </div>
+          <div class="component keypoint">
+            <span class="component-label">RECAP</span>
+            <p><strong>AB ≠ BA</strong>. (AB)ᵀ = BᵀAᵀ. |AB| = |A||B|.</p>
+          </div>
+          <div class="component keypoint">
+            <span class="component-label">RECAP</span>
+            <p><strong>A⁻¹ = adj(A)/|A|</strong>, exists ⟺ non-singular. Symmetric: Aᵀ = A. Skew: Aᵀ = −A, diagonal 0.</p>
+          </div>
+          <div class="component keypoint">
+            <span class="component-label">RECAP</span>
+            <p>Cramer: <strong>xᵢ = |Aᵢ|/|A|</strong>. |A| ≠ 0 → unique; = 0 → check (adj A)B.</p>
+          </div>
+          <div class="component keypoint">
+            <span class="component-label">RECAP</span>
+            <p>Homogeneous AX = O: always consistent; <strong>non-trivial ⟺ |A| = 0</strong>.</p>
+          </div>
+          <div class="component keypoint">
+            <span class="component-label">RECAP</span>
+            <p>Rank = largest non-zero minor = non-zero rows in echelon form.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="notes-section">
+        <h2>4.9 IMPORTANT QUESTIONS</h2>
+        <div class="component exam">
+          <span class="component-label">IMPORTANT QUESTIONS</span>
+          <ol>
+            <li>Define a matrix. Explain any six types with examples.</li>
+            <li>Show that every square matrix is the sum of a symmetric and a skew-symmetric matrix.</li>
+            <li>Prove that matrix multiplication is not commutative with a concrete 2×2 example.</li>
+            <li>List any six properties of determinants and verify one of them numerically.</li>
+            <li>Find the inverse of [[1, 2], [3, 4]] and verify A·A⁻¹ = I <em>(|A| = −2)</em>.</li>
+            <li>Define rank. Find the rank of a given 3×4 matrix by row reduction.</li>
+            <li>Solve by Cramer's rule: x + y + z = 6, x − y + z = 2, 2x + y − z = 1.</li>
+            <li>State the conditions for a system AX = B to have (a) unique, (b) no, (c) infinite solutions.</li>
+            <li>For what value of λ does the homogeneous system have non-trivial solutions?</li>
+            <li>If A is skew-symmetric, prove that A² is symmetric. What about odd powers?</li>
+          </ol>
+        </div>
+      </section>
+    </article>
+
+    <!-- ALL CHAPTERS — rendered by main.js from js/chapters.js (auto-generated
+         from the subject page by tools/build-search.py). Same .chapter-row style
+         as the subject page; the chapter you are reading is highlighted. -->
+    <nav class="chapter-list-nav" data-chapters="engineering-mathematics-i" aria-label="All chapters of this subject"></nav>
+
+    <nav class="chapter-nav" aria-label="Chapter navigation">
+      <a class="chapter-nav-link prev" href="chapter-03.html">← PREVIOUS CHAPTER<small>03 — Integration</small></a>
+      <a class="chapter-nav-link back" href="index.html">BACK TO SUBJECT<small>Engineering Mathematics – I</small></a>
+      <a class="chapter-nav-link next" href="../../index.html#explore-notes">MORE SUBJECTS →<small>back to the library</small></a>
+    </nav>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-marquee marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>LOKESHVERSE</span><span class="dot">●</span>
+        <span>NOTES, BUT MAKE THEM BRUTAL</span><span class="dot">●</span>
+        <span>ONE CHAPTER AT A TIME</span><span class="dot">●</span>
+        <span>LOKESHVERSE</span><span class="dot">●</span>
+        <span>NOTES, BUT MAKE THEM BRUTAL</span><span class="dot">●</span>
+        <span>ONE CHAPTER AT A TIME</span><span class="dot">●</span>
+      </div>
+    </div>
+    <div class="footer-grid container">
+      <section class="footer-block">
+        <h3 class="footer-label"><span class="live-dot" aria-hidden="true"></span>LIVE VISITORS</h3>
+        <p class="visitor-count"><span id="liveVisitorCount">—</span></p>
+        <p class="footer-note">Real-time count, straight from the database.<br>
+          Not configured yet? See <code>js/visitors.js</code> → README.</p>
+      </section>
+      <section class="footer-block">
+        <h3 class="footer-label">BUILT BY LOKESH</h3>
+        <p class="footer-bio">Student. Builder. Notes hoarder.</p>
+        <p class="footer-bio">A personal digital notebook that accidentally became a public library.</p>
+        <ul class="footer-links">
+          <li><a href="../../index.html">HOME</a></li>
+          <li><a href="../../index.html#explore-notes">NOTES</a></li>
+          <li><a href="../../search.html">SEARCH</a></li>
+          <li><a href="../../about.html">ABOUT</a></li>
+        </ul>
+      </section>
+      <section class="footer-block">
+        <h3 class="footer-label">🎧 LISTENING WHILE BUILDING THIS</h3>
+        <div class="spotify-frame" data-spotify-slot>
+          <noscript>Enable JavaScript to load the Spotify embed.</noscript>
+        </div>
+        <p class="footer-note">The playlist that powered the building of Lokeshverse.</p>
+      </section>
+    </div>
+    <div class="footer-bottom">
+      <div class="container footer-bottom-inner">
+        <p>© <span data-year>2026</span> LOKESHVERSE — NOTES, BUT MAKE THEM BRUTAL.</p>
+        <p class="footer-tagline">RAW HTML • THICK BORDERS • ZERO CORPORATE VIBES</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/config.js" defer></script>
+  <script src="../../js/chapters.js" defer></script>
+  <script src="../../js/main.js" defer></script>
+  <script src="../../js/visitors.js" defer></script>
+</body>
+</html>

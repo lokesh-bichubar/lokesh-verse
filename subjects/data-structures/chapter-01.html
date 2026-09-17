@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 01 — Introduction to Data Structures | LOKESHVERSE</title>
+  <meta name="description" content="What data structures are, how they are classified, ADTs, operations, and algorithm analysis with Big-O notation — Chapter 1 of Data Structures for B.Tech CSE Semester 1.">
+  <meta name="lv-university" content="Quantum University">
+  <meta name="lv-course" content="B.Tech CSE">
+  <meta name="lv-semester" content="Semester 1">
+  <meta name="lv-subject" content="Data Structures">
+  <meta name="lv-chapter-num" content="01">
+  <meta name="lv-chapter-title" content="Introduction to Data Structures">
+  <meta name="lv-note-types" content="FULL NOTES, IMPORTANT QUESTIONS">
+  <meta name="lv-keywords" content="data structure, algorithm, adt, abstract data type, time complexity, space complexity, big-o, classification, linear, non-linear, static, dynamic">
+  <meta property="og:title" content="Chapter 01 — Introduction to Data Structures">
+  <meta property="og:description" content="What data structures are, how they're classified, and how to think in Big-O.">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+  <link rel="stylesheet" href="../../css/style.css">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home"},
+    {"@type":"ListItem","position":2,"name":"Data Structures"},
+    {"@type":"ListItem","position":3,"name":"Chapter 01 — Introduction to Data Structures"}
+  ]}
+  </script>
+</head>
+<body data-page="chapter" data-root="../../">
+  <a class="skip-link" href="#notes">SKIP TO NOTES ↓</a>
+
+  <header class="site-header">
+    <div class="header-inner container">
+      <a class="logo" href="../../index.html" aria-label="LOKESHVERSE — home">
+        <span class="logo-a">LOKESH</span><span class="logo-b">VERSE</span>
+      </a>
+      <nav class="site-nav" id="siteNav" aria-label="Main navigation">
+        <a class="nav-link" href="../../index.html">HOME</a>
+        <a class="nav-link" href="../../index.html#explore-notes" aria-current="page">NOTES</a>
+        <a class="nav-link" href="../../search.html">SEARCH</a>
+        <a class="nav-link" href="../../about.html">ABOUT</a>
+      </nav>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="siteNav" aria-label="Toggle menu">
+        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main" class="container">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="../../index.html">HOME</a><span class="sep">/</span>
+      <a href="index.html">DATA STRUCTURES</a><span class="sep">/</span><span>CHAPTER 01</span>
+    </nav>
+
+    <header class="chapter-head">
+      <p class="sticker sticker-accent">CHAPTER 01 • DATA STRUCTURES</p>
+      <h1 class="chapter-title">INTRODUCTION TO DATA STRUCTURES</h1>
+      <div class="chips">
+        <span class="chip">QUANTUM UNIVERSITY</span>
+        <span class="chip">B.TECH CSE</span>
+        <span class="chip">SEMESTER 01</span>
+        <span class="chip readtime" data-readtime></span>
+      </div>
+      <div class="note-tags">
+        <span class="tag tag-full">FULL NOTES</span>
+        <span class="tag tag-questions">IMPORTANT QUESTIONS</span>
+      </div>
+    </header>
+
+    <article class="notes" data-toc="true" id="notes">
+
+      <section class="notes-section">
+        <h2>1.1 What is a Data Structure?</h2>
+        <p>Before we write a single line of code, we need to answer one question: <em>how do we
+          organize data so that our program can use it efficiently?</em> That question is the
+          entire subject in one sentence.</p>
+
+        <div class="component def">
+          <span class="component-label">DEFINITION</span>
+          <p>A <strong>data structure</strong> is a systematic way of organizing, storing and
+            managing data in a computer so that it can be accessed and modified
+            <strong>efficiently</strong> — by both the program and the programmer.</p>
+        </div>
+
+        <p>Think of it like this: the same books arranged in different ways give you completely
+          different experiences. Sorted alphabetically? Finding a title is instant. Piled
+          randomly? Good luck. The data is identical — the <strong>structure</strong> is what
+          changes the cost of every operation.</p>
+
+        <div class="component example">
+          <span class="component-label">EXAMPLE</span>
+          <h4>Problem</h4>
+          <p>You have the marks of 60 students. You need (a) the average, (b) the topper,
+            and (c) "did anyone score exactly 77?"</p>
+          <h4>Solution</h4>
+          <p>All three questions need the <em>same data</em>, but different structures make
+            each question cheap or expensive: a simple array handles the average in one pass;
+            finding the topper is another pass; and "who scored 77" is a search — fast if the
+            array is <strong>sorted</strong>, slow if it isn't. Choosing the structure is
+            choosing which operations you're optimizing for.</p>
+        </div>
+      </section>
+
+      <section class="notes-section">
+        <h2>1.2 Why Data Structures Matter</h2>
+        <p>A classic formula you'll see in every textbook:</p>
+        <div class="component formula">
+          <span class="component-label">FORMULA</span>
+          <div class="formula-body">Program = Data Structure + Algorithm</div>
+          <div class="formula-note">data (organized) + steps (to process it) = a working program</div>
+        </div>
+        <p>The algorithm is the <em>recipe</em>; the data structure is how the
+          <em>ingredients are arranged on the counter</em>. A great recipe with a chaotic
+          kitchen still produces slow food.</p>
+
+        <div class="component important">
+          <span class="component-label">IMPORTANT</span>
+          <p>For the exact same task, a better data structure can turn
+            <strong>millions of operations into a handful</strong>. Searching 1 billion sorted
+            records takes ~30 steps with binary search, but ~1,000,000,000 steps with a linear
+            scan. Same data. Same problem. Wildly different cost.</p>
+        </div>
+      </section>
+
+      <section class="notes-section">
+        <h2>1.3 Classification of Data Structures</h2>
+        <p>Data structures are classified along two main axes:</p>
+        <ul>
+          <li><strong>Primitive vs Non-primitive</strong> — built-in language types vs
+            structures we build out of them.</li>
+          <li><strong>Linear vs Non-linear</strong> — elements in a sequence vs elements in a
+            hierarchy/network.</li>
+        </ul>
+
+        <figure class="diagram">
+          <svg viewBox="0 0 720 320" role="img" aria-label="Classification tree of data structures">
+            <line x1="360" y1="52" x2="150" y2="108" stroke="#101010" stroke-width="3"></line>
+            <line x1="360" y1="52" x2="520" y2="108" stroke="#101010" stroke-width="3"></line>
+            <line x1="520" y1="148" x2="380" y2="208" stroke="#101010" stroke-width="3"></line>
+            <line x1="520" y1="148" x2="590" y2="208" stroke="#101010" stroke-width="3"></line>
+            <rect x="255" y="12" width="210" height="42" fill="#7B2FFF" stroke="#101010" stroke-width="4"></rect>
+            <text x="360" y="39" font-family="monospace" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">DATA STRUCTURES</text>
+            <rect x="55" y="108" width="190" height="40" fill="#FFFDF7" stroke="#101010" stroke-width="4"></rect>
+            <text x="150" y="134" font-family="monospace" font-size="13" font-weight="bold" text-anchor="middle">PRIMITIVE</text>
+            <rect x="430" y="108" width="180" height="40" fill="#FFFDF7" stroke="#101010" stroke-width="4"></rect>
+            <text x="520" y="134" font-family="monospace" font-size="13" font-weight="bold" text-anchor="middle">NON-PRIMITIVE</text>
+            <rect x="30" y="208" width="240" height="64" fill="#E9DEFF" stroke="#101010" stroke-width="3"></rect>
+            <text x="150" y="234" font-family="monospace" font-size="13" text-anchor="middle">int • float • char</text>
+            <text x="150" y="254" font-family="monospace" font-size="13" text-anchor="middle">boolean • pointer</text>
+            <rect x="290" y="208" width="180" height="40" fill="#FFFDF7" stroke="#101010" stroke-width="4"></rect>
+            <text x="380" y="234" font-family="monospace" font-size="13" font-weight="bold" text-anchor="middle">LINEAR</text>
+            <rect x="500" y="208" width="190" height="40" fill="#FFFDF7" stroke="#101010" stroke-width="4"></rect>
+            <text x="595" y="234" font-family="monospace" font-size="13" font-weight="bold" text-anchor="middle">NON-LINEAR</text>
+            <rect x="268" y="272" width="224" height="36" fill="#FFFDF7" stroke="#101010" stroke-width="3"></rect>
+            <text x="380" y="296" font-family="monospace" font-size="12" text-anchor="middle">Array · Linked list · Stack · Queue</text>
+            <rect x="498" y="272" width="194" height="36" fill="#FFFDF7" stroke="#101010" stroke-width="3"></rect>
+            <text x="595" y="296" font-family="monospace" font-size="12" text-anchor="middle">Tree · Graph</text>
+          </svg>
+          <figcaption>Fig 1.1 — Classification of data structures</figcaption>
+        </figure>
+
+        <p>One more distinction worth knowing for theory questions:</p>
+        <ul>
+          <li><strong>Static</strong> — size fixed at compile time (array).</li>
+          <li><strong>Dynamic</strong> — size grows/shrinks at runtime (linked list, and
+            basically everything we build after Chapter 3).</li>
+        </ul>
+      </section>
+
+      <section class="notes-section">
+        <h2>1.4 Abstract Data Type (ADT)</h2>
+        <div class="component def">
+          <span class="component-label">DEFINITION</span>
+          <p>An <strong>Abstract Data Type (ADT)</strong> is a mathematical model of a data
+            structure that specifies <strong>what</strong> operations can be performed,
+            without specifying <strong>how</strong> they are implemented.</p>
+        </div>
+        <p>The ADT is the contract; the implementation is the delivery. A <strong>Stack</strong>
+          as an ADT promises <code>push</code>, <code>pop</code> and <code>peek</code> — you
+          can honour that contract with an array or with a linked list, and the user of the
+          stack shouldn't care.</p>
+
+        <div class="component remember">
+          <span class="component-label">REMEMBER</span>
+          <p><strong>ADT = the "what". Data structure = the "how".</strong> In exams this is a
+            favourite 2-mark distinction: an ADT hides implementation details behind an
+            interface — that's literally the <em>abstraction</em> in the name.</p>
+        </div>
+      </section>
+
+      <section class="notes-section">
+        <h2>1.5 Operations on Data Structures</h2>
+        <p>Whatever structure you pick, you'll typically do some combination of these six
+          operations. The whole game of "choosing a data structure" is asking
+          <em>which of these do I do most often?</em></p>
+
+        <div class="table-scroll">
+          <table class="notes-table">
+            <caption>Table 1.1 — The six fundamental operations</caption>
+            <thead>
+              <tr><th>Operation</th><th>What it does</th><th>Example question</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Traversing</td><td>Visiting every element exactly once</td><td>Print all student marks</td></tr>
+              <tr><td>Inserting</td><td>Adding a new element at a position</td><td>Add a late admission's marks</td></tr>
+              <tr><td>Deleting</td><td>Removing an existing element</td><td>Remove a dropped-out student</td></tr>
+              <tr><td>Searching</td><td>Finding an element by value</td><td>Who scored 77?</td></tr>
+              <tr><td>Sorting</td><td>Arranging elements in order</td><td>Rank the class</td></tr>
+              <tr><td>Merging</td><td>Combining two structures into one</td><td>Merge two sections' lists</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="notes-section">
+        <h2>1.6 Algorithms and Time Complexity</h2>
+        <div class="component def">
+          <span class="component-label">DEFINITION</span>
+          <p>An <strong>algorithm</strong> is a finite, step-by-step sequence of unambiguous
+            instructions to solve a problem. <strong>Time complexity</strong> measures how the
+            running time grows as the input size <em>n</em> grows.</p>
+        </div>
+
+        <p>Because actual seconds depend on the machine, we count <em>growth</em> instead.
+          <strong>Big-O notation</strong> gives the upper bound — the worst-case growth rate —
+          while ignoring constants and lower-order terms.</p>
+
+        <div class="component formula">
+          <span class="component-label">FORMULA</span>
+          <div class="formula-body">3n² + 50n + 900 &nbsp;→&nbsp; O(n²)</div>
+          <div class="formula-note">drop constants and lower-order terms — at large n, n² eats everything else</div>
+        </div>
+
+        <h3>Rules for computing Big-O</h3>
+        <ul>
+          <li><strong>Drop constants:</strong> O(5n) → O(n).</li>
+          <li><strong>Drop lower-order terms:</strong> O(n² + n) → O(n²).</li>
+          <li><strong>Sequential blocks add</strong> — keep the biggest.</li>
+          <li><strong>Nested loops multiply:</strong> a loop inside a loop over the same data
+            is n × n.</li>
+        </ul>
+
+        <div class="table-scroll">
+          <table class="notes-table">
+            <caption>Table 1.2 — Common complexity classes, best to worst</caption>
+            <thead>
+              <tr><th>Big-O</th><th>Name</th><th>Feel at n = 1,000,000</th><th>Typical code shape</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>O(1)</td><td>Constant</td><td>1 step — instant</td><td>Array index, hash lookup</td></tr>
+              <tr><td>O(log n)</td><td>Logarithmic</td><td>~20 steps</td><td>Binary search</td></tr>
+              <tr><td>O(n)</td><td>Linear</td><td>1,000,000 steps</td><td>Single loop</td></tr>
+              <tr><td>O(n log n)</td><td>Linearithmic</td><td>~20,000,000 steps</td><td>Merge sort, heap sort</td></tr>
+              <tr><td>O(n²)</td><td>Quadratic</td><td>10¹² steps — pain</td><td>Nested loops</td></tr>
+              <tr><td>O(2ⁿ)</td><td>Exponential</td><td>Heat death of universe</td><td>Naive recursion</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Same problem, different cost</h3>
+        <p>Here's linear search vs binary search on a sorted array — one loop vs a loop that
+          halves the search space every step:</p>
+
+        <figure class="code-block">
+          <div class="code-head">
+            <span class="code-lang">C</span>
+            <button class="copy-btn" type="button">COPY</button>
+          </div>
+          <pre><code data-lang="c">/* Linear search: check every element one by one — O(n) */
+int linearSearch(int a[], int n, int key) {
+    for (int i = 0; i &lt; n; i++) {
+        if (a[i] == key)
+            return i;          /* found at index i */
+    }
+    return -1;                 /* not found */
+}
+
+/* Binary search: sorted array only, halve the range — O(log n) */
+int binarySearch(int a[], int n, int key) {
+    int low = 0, high = n - 1;
+    while (low &lt;= high) {
+        int mid = (low + high) / 2;
+        if (a[mid] == key)
+            return mid;
+        else if (a[mid] &lt; key)
+            low = mid + 1;     /* key is in right half */
+        else
+            high = mid - 1;    /* key is in left half */
+    }
+    return -1;
+}</code></pre>
+        </figure>
+      </section>
+
+      <section class="notes-section">
+        <h2>1.7 Best, Worst and Average Cases</h2>
+        <p>Complexity isn't one number — it depends on the input and your luck:</p>
+        <ul>
+          <li><strong>Best case (Ω)</strong> — the luckiest input. Linear search finds the key
+            at index 0: Ω(1).</li>
+          <li><strong>Worst case (O)</strong> — the input from hell. Linear search finds the
+            key at the last index (or not at all): O(n).</li>
+          <li><strong>Average case (Θ)</strong> — expected over all inputs: Θ(n/2) = Θ(n).</li>
+        </ul>
+        <div class="component remember">
+          <span class="component-label">REMEMBER</span>
+          <p>When someone says "the time complexity of X" with no qualifier, they mean the
+            <strong>worst case</strong>. Big-O = upper bound = the promise you can't do worse
+            than. Exams love asking for all three for linear/binary search.</p>
+        </div>
+      </section>
+
+      <section class="notes-section">
+        <h2>1.8 Space Complexity</h2>
+        <p>Time isn't the only budget — memory counts too. <strong>Space complexity</strong>
+          is the total memory an algorithm needs as a function of input size, including:</p>
+        <ul>
+          <li><strong>Fixed part</strong> — code, simple variables, constants.</li>
+          <li><strong>Variable part</strong> — dynamic allocations, recursion stack,
+            auxiliary arrays.</li>
+        </ul>
+        <p>Example: binary search uses O(1) extra space (a few variables), while merge sort
+          needs O(n) extra space for merging. Recursive versions of algorithms add
+          <strong>O(depth)</strong> stack space — that's why recursive Fibonacci is both
+          slow <em>and</em> memory-hungry.</p>
+      </section>
+
+      <section class="notes-section">
+        <h2>1.9 Chapter Keypoints</h2>
+        <div class="keypoints">
+          <div class="component keypoint">
+            <span class="component-label">KEY POINT</span>
+            <p><strong>Program = DS + Algorithm.</strong> Structure decides the cost of every operation.</p>
+          </div>
+          <div class="component keypoint">
+            <span class="component-label">KEY POINT</span>
+            <p>Big-O drops constants &amp; lower terms: <strong>3n² + 50n + 900 = O(n²)</strong>.</p>
+          </div>
+          <div class="component keypoint">
+            <span class="component-label">KEY POINT</span>
+            <p>ADT = <strong>what</strong> operations do. Data structure = <strong>how</strong> they're built.</p>
+          </div>
+          <div class="component keypoint">
+            <span class="component-label">KEY POINT</span>
+            <p><strong>Bubble sort O(n²)</strong> vs <strong>merge sort O(n log n)</strong> is the classic comparison question.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="notes-section">
+        <h2>1.10 IMPORTANT QUESTIONS</h2>
+        <div class="component exam">
+          <span class="component-label">IMPORTANT QUESTIONS</span>
+          <ol>
+            <li>Define a data structure. Classify data structures with a suitable diagram.</li>
+            <li>What is an ADT? Explain with the example of a Stack.</li>
+            <li>Differentiate between linear and non-linear data structures (give examples of each).</li>
+            <li>What is time complexity? Explain Big-O, Big-Ω and Big-Θ notation.</li>
+            <li>Find the time complexity of: (a) a single loop running n times, (b) two nested loops, (c) a loop that doubles i each iteration.</li>
+            <li>Compare best, worst and average cases of linear search vs binary search.</li>
+            <li>List and explain the six fundamental operations on data structures.</li>
+            <li>What is space complexity? Why does recursion add to it?</li>
+          </ol>
+        </div>
+      </section>
+    </article>
+
+    <!-- ALL CHAPTERS — rendered by main.js from js/chapters.js (auto-generated
+         from the subject page by tools/build-search.py). Same .chapter-row style
+         as the subject page; the chapter you are reading is highlighted. -->
+    <nav class="chapter-list-nav" data-chapters="data-structures" aria-label="All chapters of this subject"></nav>
+
+    <nav class="chapter-nav" aria-label="Chapter navigation">
+      <a class="chapter-nav-link prev" href="index.html" aria-disabled="true" style="opacity:.45;pointer-events:none">
+        ← PREVIOUS CHAPTER<small>you're at the start</small>
+      </a>
+      <a class="chapter-nav-link back" href="index.html">BACK TO SUBJECT<small>Data Structures</small></a>
+      <a class="chapter-nav-link next" href="chapter-02.html">NEXT CHAPTER →<small>02 — Arrays</small></a>
+    </nav>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-marquee marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>LOKESHVERSE</span><span class="dot">●</span>
+        <span>NOTES, BUT MAKE THEM BRUTAL</span><span class="dot">●</span>
+        <span>ONE CHAPTER AT A TIME</span><span class="dot">●</span>
+        <span>LOKESHVERSE</span><span class="dot">●</span>
+        <span>NOTES, BUT MAKE THEM BRUTAL</span><span class="dot">●</span>
+        <span>ONE CHAPTER AT A TIME</span><span class="dot">●</span>
+      </div>
+    </div>
+    <div class="footer-grid container">
+      <section class="footer-block">
+        <h3 class="footer-label"><span class="live-dot" aria-hidden="true"></span>LIVE VISITORS</h3>
+        <p class="visitor-count"><span id="liveVisitorCount">—</span></p>
+        <p class="footer-note">Real-time count, straight from the database.<br>
+          Not configured yet? See <code>js/visitors.js</code> → README.</p>
+      </section>
+      <section class="footer-block">
+        <h3 class="footer-label">BUILT BY LOKESH</h3>
+        <p class="footer-bio">Student. Builder. Notes hoarder.</p>
+        <p class="footer-bio">A personal digital notebook that accidentally became a public library.</p>
+        <ul class="footer-links">
+          <li><a href="../../index.html">HOME</a></li>
+          <li><a href="../../index.html#explore-notes">NOTES</a></li>
+          <li><a href="../../search.html">SEARCH</a></li>
+          <li><a href="../../about.html">ABOUT</a></li>
+        </ul>
+      </section>
+      <section class="footer-block">
+        <h3 class="footer-label">🎧 LISTENING WHILE BUILDING THIS</h3>
+        <div class="spotify-frame" data-spotify-slot>
+          <noscript>Enable JavaScript to load the Spotify embed.</noscript>
+        </div>
+        <p class="footer-note">The playlist that powered the building of Lokeshverse.</p>
+      </section>
+    </div>
+    <div class="footer-bottom">
+      <div class="container footer-bottom-inner">
+        <p>© <span data-year>2026</span> LOKESHVERSE — NOTES, BUT MAKE THEM BRUTAL.</p>
+        <p class="footer-tagline">RAW HTML • THICK BORDERS • ZERO CORPORATE VIBES</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/config.js" defer></script>
+  <script src="../../js/chapters.js" defer></script>
+  <script src="../../js/main.js" defer></script>
+  <script src="../../js/visitors.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 04 — Stacks &amp; Queues | Data Structures | LOKESHVERSE</title>
+  <meta name="description" content="Stacks and queues explained: LIFO and FIFO, push/pop/peek, overflow and underflow, circular queues, deques, priority queues, infix to postfix — Chapter 4 of Data Structures.">
+  <meta name="lv-university" content="Quantum University">
+  <meta name="lv-course" content="B.Tech CSE">
+  <meta name="lv-semester" content="Semester 1">
+  <meta name="lv-subject" content="Data Structures">
+  <meta name="lv-chapter-num" content="04">
+  <meta name="lv-chapter-title" content="Stacks &amp; Queues">
+  <meta name="lv-note-types" content="FULL NOTES, ONE-SHOT REVISION">
+  <meta name="lv-keywords" content="stack, queue, lifo, fifo, push, pop, peek, overflow, underflow, circular queue, deque, priority queue, infix, postfix, expression evaluation, front, rear">
+  <meta property="og:title" content="Chapter 04 — Stacks &amp; Queues">
+  <meta property="og:description" content="LIFO and FIFO — the two most examinable structures in existence.">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+  <link rel="stylesheet" href="../../css/style.css">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home"},
+    {"@type":"ListItem","position":2,"name":"Data Structures"},
+    {"@type":"ListItem","position":3,"name":"Chapter 04 — Stacks & Queues"}
+  ]}
+  </script>
+</head>
+<body data-page="chapter" data-root="../../">
+  <a class="skip-link" href="#notes">SKIP TO NOTES ↓</a>
+
+  <header class="site-header">
+    <div class="header-inner container">
+      <a class="logo" href="../../index.html" aria-label="LOKESHVERSE — home">
+        <span class="logo-a">LOKESH</span><span class="logo-b">VERSE</span>
+      </a>
+      <nav class="site-nav" id="siteNav" aria-label="Main navigation">
+        <a class="nav-link" href="../../index.html">HOME</a>
+        <a class="nav-link" href="../../index.html#explore-notes" aria-current="page">NOTES</a>
+        <a class="nav-link" href="../../search.html">SEARCH</a>
+        <a class="nav-link" href="../../about.html">ABOUT</a>
+      </nav>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="siteNav" aria-label="Toggle menu">
+        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main" class="container">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="../../index.html">HOME</a><span class="sep">/</span>
+      <a href="index.html">DATA STRUCTURES</a><span class="sep">/</span><span>CHAPTER 04</span>
+    </nav>
+
+    <header class="chapter-head">
+      <p class="sticker sticker-accent">CHAPTER 04 • DATA STRUCTURES</p>
+      <h1 class="chapter-title">STACKS &amp; QUEUES</h1>
+      <div class="chips">
+        <span class="chip">QUANTUM UNIVERSITY</span>
+        <span class="chip">B.TECH CSE</span>
+        <span class="chip">SEMESTER 01</span>
+        <span class="chip readtime" data-readtime></span>
+      </div>
+      <div class="note-tags">
+        <span class="tag tag-full">FULL NOTES</span>
+        <span class="tag tag-oneshot">ONE-SHOT REVISION</span>
+      </div>
+    </header>
+
+    <article class="notes" data-toc="true" id="notes">
+
+      <section class="notes-section">
+        <h2>4.1 The Stack — LIFO</h2>
+        <p>A stack is exactly what it sounds like: a pile of plates. You put a plate on
+          <strong>top</strong>, and you take a plate from the <strong>top</strong>. The last
+          plate in is the first plate out.</p>
+
+        <div class="component def">
+          <span class="component-label">DEFINITION</span>
+          <p>A <strong>stack</strong> is a linear data structure that follows
+            <strong>LIFO — Last In, First Out</strong>: insertion and deletion happen only at
+            one end, called the <strong>top</strong>.</p>
+        </div>
+
+        <figure class="diagram">
+          <svg viewBox="0 0 620 220" role="img" aria-label="Stack with push and pop at the top">
+            <g font-family="monospace" font-weight="bold" text-anchor="middle">
+              <rect x="70" y="150" width="140" height="36" fill="#FFFDF7" stroke="#101010" stroke-width="4"></rect>
+              <text x="140" y="174" font-size="15">10</text>
+              <rect x="70" y="112" width="140" height="36" fill="#E9DEFF" stroke="#101010" stroke-width="4"></rect>
+              <text x="140" y="136" font-size="15">20</text>
+              <rect x="70" y="74" width="140" height="36" fill="#7B2FFF" stroke="#101010" stroke-width="4"></rect>
+              <text x="140" y="98" font-size="15" fill="#ffffff">30</text>
+            </g>
+            <line x1="250" y1="92" x2="320" y2="92" stroke="#101010" stroke-width="4"></line>
+            <polygon points="320,86 334,92 320,98" fill="#101010"></polygon>
+            <text x="350" y="97" font-family="monospace" font-size="13" font-weight="bold">TOP → here (index 2)</text>
+            <line x1="500" y1="30" x2="500" y2="66" stroke="#7B2FFF" stroke-width="4"></line>
+            <polygon points="494,66 500,80 506,66" fill="#7B2FFF"></polygon>
+            <text x="440" y="24" font-family="monospace" font-size="13" font-weight="bold" fill="#7B2FFF">push(40)</text>
+            <line x1="330" y1="30" x2="330" y2="66" stroke="#101010" stroke-width="4"></line>
+            <polygon points="324,30 330,16 336,30" fill="#101010"></polygon>
+            <text x="290" y="12" font-family="monospace" font-size="13" font-weight="bold">pop() → 30</text>
+            <text x="70" y="212" font-family="monospace" font-size="12">bottom (index 0) — first in, last out</text>
+          </svg>
+          <figcaption>Fig 4.1 — All the action happens at one end: the top</figcaption>
+        </figure>
+
+        <h3>Core operations</h3>
+        <div class="table-scroll">
+          <table class="notes-table">
+            <caption>Table 4.1 — Stack operations (all O(1))</caption>
+            <thead>
+              <tr><th>Operation</th><th>Does what</th><th>Error condition</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>push(x)</td><td>Put x on top</td><td>Overflow — stack is full</td></tr>
+              <tr><td>pop()</td><td>Remove &amp; return top</td><td>Underflow — stack is empty</td></tr>
+              <tr><td>peek() / top()</td><td>Read top without removing</td><td>Underflow</td></tr>
+              <tr><td>isEmpty()</td><td>Is there anything there?</td><td>—</td></tr>
+              <tr><td>isFull()</td><td>Array-based only</td><td>—</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <figure class="code-block">
+          <div class="code-head">
+            <span class="code-lang">C</span>
+            <button class="copy-btn" type="button">COPY</button>
+          </div>
+          <pre><code data-lang="c">#define SIZE 100
+int stack[SIZE], top = -1;      /* -1 means empty */
+
+void push(int x) {
+    if (top == SIZE - 1) {          /* overflow guard */
+        printf("STACK OVERFLOW\n");
+        return;
+    }
+    stack[++top] = x;
+}
+
+int pop() {
+    if (top == -1) {                /* underflow guard */
+        printf("STACK UNDERFLOW\n");
+        return -1;
+    }
+    return stack[top--];
+}</code></pre>
+        </figure>
+
+        <div class="component remember">
+          <span class="component-label">REMEMBER</span>
+          <p><strong>Overflow</strong> = pushing into a FULL stack.
+            <strong>Underflow</strong> = popping an EMPTY stack. Exams swap these on purpose.
+            Also: <code>top = -1</code> means empty; <code>top == SIZE-1</code> means full
+            — for an array stack indexed from 0.</p>
+        </div>
+      </section>
+
+      <section class="notes-section">
+        <h2>4.2 Applications of Stacks</h2>
+        <ul>
+          <li><strong>Function calls &amp; recursion</strong> — the call stack holds return
+            addresses and locals. Deep recursion = stack overflow, the runtime error named
+            after this very structure.</li>
+          <li><strong>Expression conversion &amp; evaluation</strong> — infix → postfix,
+            then evaluating postfix (see below).</li>
+          <li><strong>Undo / Redo</strong> — every action pushes onto an undo stack.</li>
+          <li><strong>Browser back button</strong> — URLs pushed as you browse.</li>
+          <li><strong>Matching brackets / parentheses</strong> — push opening, pop on closing,
+            fail on mismatch.</li>
+          <li><strong>Backtracking</strong> — mazes, DFS: push choices, pop when stuck.</li>
+        </ul>
+
+        <h3>Infix → Postfix (the classic exam question)</h3>
+        <div class="component example">
+          <span class="component-label">EXAMPLE</span>
+          <h4>Problem</h4>
+          <p>Convert <code>A + B * C</code> and <code>(A + B) * C</code> to postfix.</p>
+          <h4>Solution</h4>
+          <p><code>A + B * C</code> → <code>A B C * +</code> &nbsp;(<code>*</code> has higher
+            precedence, so B*C happens first)</p>
+          <p><code>(A + B) * C</code> → <code>A B + C *</code> &nbsp;(brackets force + first)</p>
+          <p><strong>Rule of thumb:</strong> in postfix, operators appear <em>after</em> their
+            operands, and precedence/brackets are baked into the order — so no brackets
+            survive and no precedence rules are needed at evaluation time.</p>
+        </div>
+      </section>
+
+      <section class="notes-section">
+        <h2>4.3 The Queue — FIFO</h2>
+        <div class="component def">
+          <span class="component-label">DEFINITION</span>
+          <p>A <strong>queue</strong> is a linear data structure that follows
+            <strong>FIFO — First In, First Out</strong>: insertion happens at the
+            <strong>rear</strong>, deletion happens at the <strong>front</strong>.</p>
+        </div>
+
+        <figure class="diagram">
+          <svg viewBox="0 0 620 130" role="img" aria-label="Queue: insert at rear, delete from front">
+            <text x="16" y="60" font-family="monospace" font-size="13" font-weight="bold">FRONT →</text>
+            <g font-family="monospace" font-weight="bold" text-anchor="middle">
+              <rect x="100" y="34" width="90" height="44" fill="#E9DEFF" stroke="#101010" stroke-width="4"></rect>
+              <text x="145" y="61" font-size="15">10</text>
+              <rect x="190" y="34" width="90" height="44" fill="#FFFDF7" stroke="#101010" stroke-width="4"></rect>
+              <text x="235" y="61" font-size="15">20</text>
+              <rect x="280" y="34" width="90" height="44" fill="#FFFDF7" stroke="#101010" stroke-width="4"></rect>
+              <text x="325" y="61" font-size="15">30</text>
+              <rect x="370" y="34" width="90" height="44" fill="#7B2FFF" stroke="#101010" stroke-width="4"></rect>
+              <text x="415" y="61" font-size="15" fill="#ffffff">40</text>
+            </g>
+            <text x="470" y="60" font-family="monospace" font-size="13" font-weight="bold">← REAR</text>
+            <line x1="100" y1="100" x2="460" y2="100" stroke="#101010" stroke-width="0"></line>
+            <text x="100" y="106" font-family="monospace" font-size="12">delete() happens here (first in)</text>
+            <text x="330" y="106" font-family="monospace" font-size="12">insert() happens here (last in)</text>
+          </svg>
+          <figcaption>Fig 4.2 — Enter at the rear, exit from the front — like an actual queue</figcaption>
+        </figure>
+
+        <h3>The problem with the simple array queue</h3>
+        <p>After a few dequeues, the front of the array becomes unusable "dead space" — even
+          though the queue is nearly empty, the rear pointer hits the end. This is the
+          <strong>false overflow</strong> problem, and the fix is elegance itself:</p>
+
+        <div class="component important">
+          <span class="component-label">IMPORTANT</span>
+          <p>The <strong>circular queue</strong> treats the array as a ring: when a pointer
+            runs off the end, it wraps back to index 0 using modulo arithmetic. No space is
+            ever wasted.</p>
+        </div>
+
+        <div class="component formula">
+          <span class="component-label">FORMULA</span>
+          <div class="formula-body">rear = (rear + 1) mod n &nbsp;&nbsp;•&nbsp;&nbsp; front = (front + 1) mod n</div>
+          <div class="formula-note">n = capacity of the array · wrap-around in one line of arithmetic</div>
+        </div>
+
+        <figure class="code-block">
+          <div class="code-head">
+            <span class="code-lang">C</span>
+            <button class="copy-btn" type="button">COPY</button>
+          </div>
+          <pre><code data-lang="c">#define N 5
+int q[N], front = -1, rear = -1;
+
+void enqueue(int x) {                 /* insert at rear */
+    if ((rear + 1) % N == front) {    /* queue full */
+        printf("QUEUE OVERFLOW\n");
+        return;
+    }
+    if (front == -1) front = 0;
+    rear = (rear + 1) % N;            /* wrap around */
+    q[rear] = x;
+}
+
+int dequeue() {                       /* delete from front */
+    if (front == -1) {                /* queue empty */
+        printf("QUEUE UNDERFLOW\n");
+        return -1;
+    }
+    int x = q[front];
+    if (front == rear)                /* last element taken */
+        front = rear = -1;
+    else
+        front = (front + 1) % N;      /* wrap around */
+    return x;
+}</code></pre>
+        </figure>
+      </section>
+
+      <section class="notes-section">
+        <h2>4.4 Types of Queues</h2>
+        <div class="keypoints">
+          <div class="component keypoint">
+            <span class="component-label">SIMPLE QUEUE</span>
+            <p>Plain FIFO. Suffers false overflow once the front fills with dead space.</p>
+          </div>
+          <div class="component keypoint">
+            <span class="component-label">CIRCULAR QUEUE</span>
+            <p>Ring layout with <strong>mod</strong> wrap-around. The fix for false overflow.</p>
+          </div>
+          <div class="component keypoint">
+            <span class="component-label">DEQUE</span>
+            <p><strong>Double-ended</strong> — insert and delete at <em>both</em> ends. A stack
+              and a queue at the same time.</p>
+          </div>
+          <div class="component keypoint">
+            <span class="component-label">PRIORITY QUEUE</span>
+            <p>Elements with higher priority come out first, regardless of arrival time.
+              OS schedulers and Dijkstra live here.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="notes-section">
+        <h2>4.5 Applications of Queues</h2>
+        <ul>
+          <li><strong>CPU scheduling</strong> — ready queue of processes (round-robin uses a
+            circular queue).</li>
+          <li><strong>Printer spooling</strong> — jobs print in arrival order.</li>
+          <li><strong>BFS graph traversal</strong> — explores level by level (Chapter 06).</li>
+          <li><strong>Keyboard buffer / IO buffers</strong> — keystrokes queue up.</li>
+          <li><strong>Call center systems</strong> — "your call is important to us" is a
+            queue speaking.</li>
+        </ul>
+      </section>
+
+      <section class="notes-section">
+        <h2>4.6 ONE-SHOT REVISION — 60-SECOND RECAP</h2>
+        <div class="keypoints">
+          <div class="component keypoint">
+            <span class="component-label">RECAP</span>
+            <p><strong>Stack = LIFO</strong>, one end (top). <strong>Queue = FIFO</strong>,
+              two ends (front out, rear in).</p>
+          </div>
+          <div class="component keypoint">
+            <span class="component-label">RECAP</span>
+            <p>push/pop/peek are all <strong>O(1)</strong>. Overflow = full, underflow = empty.</p>
+          </div>
+          <div class="component keypoint">
+            <span class="component-label">RECAP</span>
+            <p>Circular queue wrap: <strong>(i + 1) mod n</strong>. Full when
+              <strong>(rear+1) mod n == front</strong>.</p>
+          </div>
+          <div class="component keypoint">
+            <span class="component-label">RECAP</span>
+            <p><strong>Stack apps:</strong> recursion, undo, brackets, infix→postfix.
+              <strong>Queue apps:</strong> scheduling, BFS, buffers.</p>
+          </div>
+          <div class="component keypoint">
+            <span class="component-label">RECAP</span>
+            <p>Postfix of <strong>A+B*C = ABC*+</strong>; of <strong>(A+B)*C = AB+C*</strong>.</p>
+          </div>
+          <div class="component keypoint">
+            <span class="component-label">RECAP</span>
+            <p>Deque = both ends. Priority queue = urgency beats arrival order.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="notes-section">
+        <h2>4.7 IMPORTANT QUESTIONS</h2>
+        <div class="component exam">
+          <span class="component-label">IMPORTANT QUESTIONS</span>
+          <ol>
+            <li>Define a stack. Explain push, pop and peek with overflow/underflow conditions.</li>
+            <li>Write a C program to implement a stack using an array.</li>
+            <li>Convert the following infix expressions to postfix: (a) <code>A*(B+C)/D</code>
+              (b) <code>(A+B)*(C−D)</code> (c) <code>A+B*C−D/E</code>.</li>
+            <li>How does a stack help in evaluating a postfix expression? Trace <code>6 2 3 + − 3 8 2 / + *</code>.</li>
+            <li>What is the false overflow problem? How does a circular queue solve it?</li>
+            <li>Write functions for enqueue and dequeue in a circular queue.</li>
+            <li>Differentiate between a stack and a queue (any five points).</li>
+            <li>What is a deque? How does a priority queue differ from a simple queue?</li>
+            <li>List four applications each of stacks and queues.</li>
+          </ol>
+        </div>
+      </section>
+    </article>
+
+    <!-- ALL CHAPTERS — rendered by main.js from js/chapters.js (auto-generated
+         from the subject page by tools/build-search.py). Same .chapter-row style
+         as the subject page; the chapter you are reading is highlighted. -->
+    <nav class="chapter-list-nav" data-chapters="data-structures" aria-label="All chapters of this subject"></nav>
+
+    <nav class="chapter-nav" aria-label="Chapter navigation">
+      <a class="chapter-nav-link prev" href="chapter-03.html">← PREVIOUS CHAPTER<small>03 — Linked Lists</small></a>
+      <a class="chapter-nav-link back" href="index.html">BACK TO SUBJECT<small>Data Structures</small></a>
+      <a class="chapter-nav-link next" href="chapter-05.html">NEXT CHAPTER →<small>05 — Trees</small></a>
+    </nav>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-marquee marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>LOKESHVERSE</span><span class="dot">●</span>
+        <span>NOTES, BUT MAKE THEM BRUTAL</span><span class="dot">●</span>
+        <span>ONE CHAPTER AT A TIME</span><span class="dot">●</span>
+        <span>LOKESHVERSE</span><span class="dot">●</span>
+        <span>NOTES, BUT MAKE THEM BRUTAL</span><span class="dot">●</span>
+        <span>ONE CHAPTER AT A TIME</span><span class="dot">●</span>
+      </div>
+    </div>
+    <div class="footer-grid container">
+      <section class="footer-block">
+        <h3 class="footer-label"><span class="live-dot" aria-hidden="true"></span>LIVE VISITORS</h3>
+        <p class="visitor-count"><span id="liveVisitorCount">—</span></p>
+        <p class="footer-note">Real-time count, straight from the database.<br>
+          Not configured yet? See <code>js/visitors.js</code> → README.</p>
+      </section>
+      <section class="footer-block">
+        <h3 class="footer-label">BUILT BY LOKESH</h3>
+        <p class="footer-bio">Student. Builder. Notes hoarder.</p>
+        <p class="footer-bio">A personal digital notebook that accidentally became a public library.</p>
+        <ul class="footer-links">
+          <li><a href="../../index.html">HOME</a></li>
+          <li><a href="../../index.html#explore-notes">NOTES</a></li>
+          <li><a href="../../search.html">SEARCH</a></li>
+          <li><a href="../../about.html">ABOUT</a></li>
+        </ul>
+      </section>
+      <section class="footer-block">
+        <h3 class="footer-label">🎧 LISTENING WHILE BUILDING THIS</h3>
+        <div class="spotify-frame" data-spotify-slot>
+          <noscript>Enable JavaScript to load the Spotify embed.</noscript>
+        </div>
+        <p class="footer-note">The playlist that powered the building of Lokeshverse.</p>
+      </section>
+    </div>
+    <div class="footer-bottom">
+      <div class="container footer-bottom-inner">
+        <p>© <span data-year>2026</span> LOKESHVERSE — NOTES, BUT MAKE THEM BRUTAL.</p>
+        <p class="footer-tagline">RAW HTML • THICK BORDERS • ZERO CORPORATE VIBES</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/config.js" defer></script>
+  <script src="../../js/chapters.js" defer></script>
+  <script src="../../js/main.js" defer></script>
+  <script src="../../js/visitors.js" defer></script>
+</body>
+</html>

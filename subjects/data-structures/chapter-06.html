@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 06 — Graphs | Data Structures | LOKESHVERSE</title>
+  <meta name="description" content="Graphs in data structures: G = (V, E), terminology, directed and undirected graphs, adjacency matrix and adjacency list, BFS and DFS traversals with code — Chapter 6 of Data Structures.">
+  <meta name="lv-university" content="Quantum University">
+  <meta name="lv-course" content="B.Tech CSE">
+  <meta name="lv-semester" content="Semester 1">
+  <meta name="lv-subject" content="Data Structures">
+  <meta name="lv-chapter-num" content="06">
+  <meta name="lv-chapter-title" content="Graphs">
+  <meta name="lv-note-types" content="FULL NOTES, IMPORTANT QUESTIONS">
+  <meta name="lv-keywords" content="graph, vertex, vertices, edge, directed graph, undirected graph, weighted graph, adjacency matrix, adjacency list, bfs, dfs, breadth first search, depth first search, cycle, dag, dijkstra">
+  <meta property="og:title" content="Chapter 06 — Graphs">
+  <meta property="og:description" content="Vertices, edges, adjacency matrices and BFS/DFS — the final boss of Semester 1.">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+  <link rel="stylesheet" href="../../css/style.css">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home"},
+    {"@type":"ListItem","position":2,"name":"Data Structures"},
+    {"@type":"ListItem","position":3,"name":"Chapter 06 — Graphs"}
+  ]}
+  </script>
+</head>
+<body data-page="chapter" data-root="../../">
+  <a class="skip-link" href="#notes">SKIP TO NOTES ↓</a>
+
+  <header class="site-header">
+    <div class="header-inner container">
+      <a class="logo" href="../../index.html" aria-label="LOKESHVERSE — home">
+        <span class="logo-a">LOKESH</span><span class="logo-b">VERSE</span>
+      </a>
+      <nav class="site-nav" id="siteNav" aria-label="Main navigation">
+        <a class="nav-link" href="../../index.html">HOME</a>
+        <a class="nav-link" href="../../index.html#explore-notes" aria-current="page">NOTES</a>
+        <a class="nav-link" href="../../search.html">SEARCH</a>
+        <a class="nav-link" href="../../about.html">ABOUT</a>
+      </nav>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="siteNav" aria-label="Toggle menu">
+        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main" class="container">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="../../index.html">HOME</a><span class="sep">/</span>
+      <a href="index.html">DATA STRUCTURES</a><span class="sep">/</span><span>CHAPTER 06</span>
+    </nav>
+
+    <header class="chapter-head">
+      <p class="sticker sticker-accent">CHAPTER 06 • DATA STRUCTURES</p>
+      <h1 class="chapter-title">GRAPHS</h1>
+      <div class="chips">
+        <span class="chip">QUANTUM UNIVERSITY</span>
+        <span class="chip">B.TECH CSE</span>
+        <span class="chip">SEMESTER 01</span>
+        <span class="chip readtime" data-readtime></span>
+      </div>
+      <div class="note-tags">
+        <span class="tag tag-full">FULL NOTES</span>
+        <span class="tag tag-questions">IMPORTANT QUESTIONS</span>
+      </div>
+    </header>
+
+    <article class="notes" data-toc="true" id="notes">
+
+      <section class="notes-section">
+        <h2>6.1 What is a Graph?</h2>
+        <p>Trees model hierarchy — one boss, everyone below. But real relationships aren't
+          hierarchical: friends connect to friends, cities to cities, web pages to web pages.
+          A graph is the structure for "things connected to things", full stop.</p>
+
+        <div class="component def">
+          <span class="component-label">DEFINITION</span>
+          <p>A <strong>graph</strong> is a non-linear data structure defined as
+            <strong>G = (V, E)</strong>, where <strong>V</strong> is a finite set of
+            <strong>vertices</strong> (nodes) and <strong>E</strong> is a set of
+            <strong>edges</strong> — each edge connecting a pair of vertices.</p>
+        </div>
+
+        <figure class="diagram">
+          <svg viewBox="0 0 640 240" role="img" aria-label="Undirected graph with vertices A B C D E">
+            <line x1="120" y1="70" x2="300" y2="40" stroke="#101010" stroke-width="4"></line>
+            <line x1="120" y1="70" x2="230" y2="180" stroke="#101010" stroke-width="4"></line>
+            <line x1="300" y1="40" x2="230" y2="180" stroke="#101010" stroke-width="4"></line>
+            <line x1="230" y1="180" x2="430" y2="200" stroke="#101010" stroke-width="4"></line>
+            <line x1="300" y1="40" x2="430" y2="200" stroke="#101010" stroke-width="4"></line>
+            <line x1="430" y1="200" x2="540" y2="80" stroke="#101010" stroke-width="4"></line>
+            <line x1="300" y1="40" x2="540" y2="80" stroke="#101010" stroke-width="4"></line>
+            <g font-family="monospace" font-size="18" font-weight="bold" text-anchor="middle">
+              <circle cx="120" cy="70" r="26" fill="#7B2FFF" stroke="#101010" stroke-width="4"></circle>
+              <text x="120" y="77" fill="#ffffff">A</text>
+              <circle cx="300" cy="40" r="26" fill="#FFFDF7" stroke="#101010" stroke-width="4"></circle>
+              <text x="300" y="47">B</text>
+              <circle cx="230" cy="180" r="26" fill="#FFFDF7" stroke="#101010" stroke-width="4"></circle>
+              <text x="230" y="187">C</text>
+              <circle cx="430" cy="200" r="26" fill="#FFFDF7" stroke="#101010" stroke-width="4"></circle>
+              <text x="430" y="207">D</text>
+              <circle cx="540" cy="80" r="26" fill="#E9DEFF" stroke="#101010" stroke-width="4"></circle>
+              <text x="540" y="87">E</text>
+            </g>
+            <text x="16" y="232" font-family="monospace" font-size="13" font-weight="bold">V = {A, B, C, D, E}   E = {AB, AC, BC, BD, CD, DE, BE}</text>
+          </svg>
+          <figcaption>Fig 6.1 — An undirected graph: 5 vertices, 7 edges</figcaption>
+        </figure>
+
+        <div class="component important">
+          <span class="component-label">IMPORTANT</span>
+          <p>A tree is just a <strong>graph with no cycles and exactly one path between any
+            two nodes</strong>. Every tree is a graph; almost no graph is a tree. Remember
+            this hierarchy: graph ⊃ tree ⊃ binary tree.</p>
+        </div>
+      </section>
+
+      <section class="notes-section">
+        <h2>6.2 Terminology</h2>
+        <div class="table-scroll">
+          <table class="notes-table">
+            <caption>Table 6.1 — Graph vocabulary</caption>
+            <thead>
+              <tr><th>Term</th><th>Meaning</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Adjacent vertices</td><td>Two vertices joined directly by an edge (neighbours)</td></tr>
+              <tr><td>Degree of a vertex</td><td>Number of edges touching it. For directed graphs: in-degree (incoming) + out-degree (outgoing)</td></tr>
+              <tr><td>Path</td><td>Sequence of vertices where each consecutive pair is joined by an edge</td></tr>
+              <tr><td>Cycle</td><td>A path that starts and ends at the same vertex</td></tr>
+              <tr><td>Connected graph</td><td>A path exists between every pair of vertices</td></tr>
+              <tr><td>Weighted graph</td><td>Each edge carries a cost (distance, time, price…)</td></tr>
+              <tr><td>DAG</td><td>Directed Acyclic Graph — directed, no cycles; used for dependency / course prerequisite modelling</td></tr>
+              <tr><td>Complete graph</td><td>Every vertex connects to every other: n vertices → n(n−1)/2 edges (undirected)</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="component remember">
+          <span class="component-label">REMEMBER</span>
+          <p><strong>Handshake lemma:</strong> the sum of all degrees in an undirected graph is
+            always <strong>2 × |E|</strong> (every edge is counted twice, once per endpoint).
+            A complete graph on n vertices has <strong>n(n−1)/2</strong> edges — both are
+            favourite one-liners in exams.</p>
+        </div>
+      </section>
+
+      <section class="notes-section">
+        <h2>6.3 Types of Graphs</h2>
+        <div class="keypoints">
+          <div class="component keypoint">
+            <span class="component-label">UNDIRECTED</span>
+            <p>Edges have no direction — A—B means you can travel both ways. Friendships,
+              roads between cities.</p>
+          </div>
+          <div class="component keypoint">
+            <span class="component-label">DIRECTED (DIGRAPH)</span>
+            <p>Edges are arrows — A→B ≠ B→A. Twitter follows, web links, course
+              prerequisites.</p>
+          </div>
+          <div class="component keypoint">
+            <span class="component-label">WEIGHTED</span>
+            <p>Edges carry numbers (cost, distance, latency). Maps and networks.</p>
+          </div>
+          <div class="component keypoint">
+            <span class="component-label">CYCLIC / ACYCLIC</span>
+            <p>Cycle present or not. <strong>DAG</strong> = directed + acyclic — the shape
+              of dependencies and compilers' data flow.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="notes-section">
+        <h2>6.4 Representations</h2>
+
+        <h3>Adjacency matrix</h3>
+        <p>An n × n grid where <code>M[i][j] = 1</code> if an edge exists between vertex i
+          and vertex j (or the weight, in a weighted graph). For the graph of Fig 6.1
+          (order A, B, C, D, E):</p>
+
+        <div class="table-scroll">
+          <table class="notes-table">
+            <caption>Table 6.2 — Adjacency matrix of Fig 6.1</caption>
+            <thead>
+              <tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>A</td><td>0</td><td>1</td><td>1</td><td>0</td><td>0</td></tr>
+              <tr><td>B</td><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td></tr>
+              <tr><td>C</td><td>1</td><td>1</td><td>0</td><td>1</td><td>0</td></tr>
+              <tr><td>D</td><td>0</td><td>0</td><td>1</td><td>0</td><td>1</td></tr>
+              <tr><td>E</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Adjacency list</h3>
+        <p>An array (or list) of lists — one list per vertex holding its neighbours:</p>
+        <figure class="code-block">
+          <div class="code-head">
+            <span class="code-lang">TEXT</span>
+            <button class="copy-btn" type="button">COPY</button>
+          </div>
+          <pre><code>A -&gt; B, C
+B -&gt; A, C, E
+C -&gt; A, B, D
+D -&gt; C, E
+E -&gt; B, D</code></pre>
+        </figure>
+
+        <div class="table-scroll">
+          <table class="notes-table">
+            <caption>Table 6.3 — Matrix vs list</caption>
+            <thead>
+              <tr><th>Point</th><th>Adjacency matrix</th><th>Adjacency list</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Space</td><td>O(V²) — always</td><td>O(V + E)</td></tr>
+              <tr><td>Check edge (u,v)</td><td>O(1) — direct lookup</td><td>O(degree(u))</td></tr>
+              <tr><td>List all neighbours</td><td>O(V)</td><td>O(degree(u))</td></tr>
+              <tr><td>Best for</td><td>Dense graphs, quick edge queries</td><td>Sparse graphs (most real graphs)</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="notes-section">
+        <h2>6.5 Traversals — BFS &amp; DFS</h2>
+        <p>Two ways to walk a graph, and the contrast is beautiful:</p>
+        <ul>
+          <li><strong>BFS (Breadth-First Search)</strong> — explore level by level, like
+            ripples in water. Uses a <strong>QUEUE</strong>. Finds <em>shortest paths in
+            unweighted graphs</em>.</li>
+          <li><strong>DFS (Depth-First Search)</strong> — dive as deep as possible, backtrack
+            when stuck. Uses a <strong>STACK</strong> (or recursion). Finds cycles,
+            topological order, connected components.</li>
+        </ul>
+
+        <div class="component remember">
+          <span class="component-label">REMEMBER</span>
+          <p><strong>BFS = Queue. DFS = Stack.</strong> If you remember one sentence from
+            this chapter, make it this one — it's a guaranteed exam question and it cleanly
+            links Chapter 06 back to Chapter 04.</p>
+        </div>
+
+        <figure class="code-block">
+          <div class="code-head">
+            <span class="code-lang">C</span>
+            <button class="copy-btn" type="button">COPY</button>
+          </div>
+          <pre><code data-lang="c">/* BFS from vertex 'start' — uses a QUEUE */
+void bfs(int adj[][V], int start) {
+    int visited[V] = {0};
+    int queue[V], front = 0, rear = 0;
+
+    visited[start] = 1;
+    queue[rear++] = start;           /* enqueue */
+
+    while (front &lt; rear) {
+        int u = queue[front++];      /* dequeue */
+        printf("%d ", u);
+
+        for (int v = 0; v &lt; V; v++) {
+            if (adj[u][v] == 1 &amp;&amp; !visited[v]) {
+                visited[v] = 1;      /* mark BEFORE enqueueing */
+                queue[rear++] = v;
+            }
+        }
+    }
+}</code></pre>
+        </figure>
+
+        <figure class="code-block">
+          <div class="code-head">
+            <span class="code-lang">C</span>
+            <button class="copy-btn" type="button">COPY</button>
+          </div>
+          <pre><code data-lang="c">/* DFS from vertex 'u' — recursion IS the stack */
+void dfs(int adj[][V], int u, int visited[]) {
+    visited[u] = 1;
+    printf("%d ", u);
+
+    for (int v = 0; v &lt; V; v++) {
+        if (adj[u][v] == 1 &amp;&amp; !visited[v])
+            dfs(adj, v, visited);    /* go deeper */
+    }
+}</code></pre>
+        </figure>
+
+        <div class="component example">
+          <span class="component-label">EXAMPLE</span>
+          <h4>Problem</h4>
+          <p>Starting from vertex <strong>A</strong>, give one valid BFS order and one valid
+            DFS order for the graph of Fig 6.1.</p>
+          <h4>Solution</h4>
+          <p><strong>BFS:</strong> A, B, C, E, D — visit A; then A's neighbours B, C; then
+            B's unvisited neighbour E; then C's unvisited neighbour D.</p>
+          <p><strong>DFS:</strong> A, B, C, D, E — A → B → C → D → E, diving deep and only
+            backtracking when there's nowhere new to go.</p>
+          <p>Both are valid traversals of the same graph — they just answer different
+            questions: BFS = "what's nearby?", DFS = "where does this road lead?"</p>
+        </div>
+      </section>
+
+      <section class="notes-section">
+        <h2>6.6 Applications of Graphs</h2>
+        <ul>
+          <li><strong>Maps &amp; navigation</strong> — Dijkstra's shortest path (Google Maps
+            is a weighted graph problem).</li>
+          <li><strong>Social networks</strong> — friends, followers, "friends of friends"
+            (BFS at depth 2).</li>
+          <li><strong>Web search</strong> — PageRank runs on the graph of links between
+            pages.</li>
+          <li><strong>Course prerequisites / build systems</strong> — DAGs + topological
+            sorting.</li>
+          <li><strong>Networks</strong> — routers, LAN topologies, delivery routes.</li>
+          <li><strong>Dependency resolution</strong> — package managers (npm, pip) detect
+            circular dependencies with DFS.</li>
+        </ul>
+
+        <div class="component important">
+          <span class="component-label">IMPORTANT</span>
+          <p>Complexities to quote in exams: <strong>BFS = O(V + E)</strong> with an
+            adjacency list (O(V²) with a matrix); <strong>DFS = O(V + E)</strong> list,
+            O(V²) matrix. Both visit everything once — the representation decides the cost
+            of scanning neighbours.</p>
+        </div>
+      </section>
+
+      <section class="notes-section">
+        <h2>6.7 Chapter Keypoints</h2>
+        <div class="keypoints">
+          <div class="component keypoint">
+            <span class="component-label">KEY POINT</span>
+            <p><strong>G = (V, E)</strong>. Tree = connected + acyclic graph with n−1 edges.</p>
+          </div>
+          <div class="component keypoint">
+            <span class="component-label">KEY POINT</span>
+            <p>Σ degrees = <strong>2|E|</strong>; complete graph = <strong>n(n−1)/2</strong> edges.</p>
+          </div>
+          <div class="component keypoint">
+            <span class="component-label">KEY POINT</span>
+            <p>Matrix: O(V²) space, O(1) edge check. List: <strong>O(V+E)</strong> space —
+              default for sparse graphs.</p>
+          </div>
+          <div class="component keypoint">
+            <span class="component-label">KEY POINT</span>
+            <p><strong>BFS → queue, shortest path (unweighted). DFS → stack, cycles &amp;
+              topological order.</strong></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="notes-section">
+        <h2>6.8 IMPORTANT QUESTIONS</h2>
+        <div class="component exam">
+          <span class="component-label">IMPORTANT QUESTIONS</span>
+          <ol>
+            <li>Define a graph. Differentiate between a graph and a tree.</li>
+            <li>Explain directed, undirected, weighted and cyclic graphs with examples.</li>
+            <li>Define degree, in-degree, out-degree, path, cycle and connected graph.</li>
+            <li>Represent a given graph (draw one with 5 vertices, 7 edges) as an adjacency matrix and an adjacency list.</li>
+            <li>Compare adjacency matrix and adjacency list representations (any four points).</li>
+            <li>Write the BFS algorithm and trace it on a graph of your choice.</li>
+            <li>Write the DFS algorithm (recursive) and trace it.</li>
+            <li>Why does BFS use a queue and DFS a stack?</li>
+            <li>How many edges are there in a complete graph with 10 vertices? <em>(45)</em></li>
+            <li>List four real-world applications of graphs.</li>
+          </ol>
+        </div>
+      </section>
+    </article>
+
+    <!-- ALL CHAPTERS — rendered by main.js from js/chapters.js (auto-generated
+         from the subject page by tools/build-search.py). Same .chapter-row style
+         as the subject page; the chapter you are reading is highlighted. -->
+    <nav class="chapter-list-nav" data-chapters="data-structures" aria-label="All chapters of this subject"></nav>
+
+    <nav class="chapter-nav" aria-label="Chapter navigation">
+      <a class="chapter-nav-link prev" href="chapter-05.html">← PREVIOUS CHAPTER<small>05 — Trees</small></a>
+      <a class="chapter-nav-link back" href="index.html">BACK TO SUBJECT<small>Data Structures</small></a>
+      <a class="chapter-nav-link next" href="../../index.html#explore-notes">MORE SUBJECTS →<small>back to the library</small></a>
+    </nav>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-marquee marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>LOKESHVERSE</span><span class="dot">●</span>
+        <span>NOTES, BUT MAKE THEM BRUTAL</span><span class="dot">●</span>
+        <span>ONE CHAPTER AT A TIME</span><span class="dot">●</span>
+        <span>LOKESHVERSE</span><span class="dot">●</span>
+        <span>NOTES, BUT MAKE THEM BRUTAL</span><span class="dot">●</span>
+        <span>ONE CHAPTER AT A TIME</span><span class="dot">●</span>
+      </div>
+    </div>
+    <div class="footer-grid container">
+      <section class="footer-block">
+        <h3 class="footer-label"><span class="live-dot" aria-hidden="true"></span>LIVE VISITORS</h3>
+        <p class="visitor-count"><span id="liveVisitorCount">—</span></p>
+        <p class="footer-note">Real-time count, straight from the database.<br>
+          Not configured yet? See <code>js/visitors.js</code> → README.</p>
+      </section>
+      <section class="footer-block">
+        <h3 class="footer-label">BUILT BY LOKESH</h3>
+        <p class="footer-bio">Student. Builder. Notes hoarder.</p>
+        <p class="footer-bio">A personal digital notebook that accidentally became a public library.</p>
+        <ul class="footer-links">
+          <li><a href="../../index.html">HOME</a></li>
+          <li><a href="../../index.html#explore-notes">NOTES</a></li>
+          <li><a href="../../search.html">SEARCH</a></li>
+          <li><a href="../../about.html">ABOUT</a></li>
+        </ul>
+      </section>
+      <section class="footer-block">
+        <h3 class="footer-label">🎧 LISTENING WHILE BUILDING THIS</h3>
+        <div class="spotify-frame" data-spotify-slot">
+          <noscript>Enable JavaScript to load the Spotify embed.</noscript>
+        </div>
+        <p class="footer-note">The playlist that powered the building of Lokeshverse.</p>
+      </section>
+    </div>
+    <div class="footer-bottom">
+      <div class="container footer-bottom-inner">
+        <p>© <span data-year>2026</span> LOKESHVERSE — NOTES, BUT MAKE THEM BRUTAL.</p>
+        <p class="footer-tagline">RAW HTML • THICK BORDERS • ZERO CORPORATE VIBES</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/config.js" defer></script>
+  <script src="../../js/chapters.js" defer></script>
+  <script src="../../js/main.js" defer></script>
+  <script src="../../js/visitors.js" defer></script>
+</body>
+</html>
