@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#FBF3E2"/>
+  <g fill="#e3d5b3">
+    <circle cx="60" cy="60" r="4"/><circle cx="160" cy="60" r="4"/><circle cx="260" cy="60" r="4"/><circle cx="360" cy="60" r="4"/>
+    <circle cx="60" cy="570" r="4"/><circle cx="160" cy="570" r="4"/><circle cx="1060" cy="570" r="4"/><circle cx="1160" cy="570" r="4"/>
+  </g>
+  <rect x="900" y="70" width="180" height="180" fill="#3EDCE6" stroke="#141414" stroke-width="8" transform="rotate(12 990 160)"/>
+  <rect x="80" y="420" width="130" height="130" fill="#FF8A3D" stroke="#141414" stroke-width="8" transform="rotate(-8 145 485)"/>
+  <polygon points="1080,430 1130,560 1030,560" fill="#A8E830" stroke="#141414" stroke-width="8"/>
+  <text x="80" y="240" font-family="Arial Black, Arial, sans-serif" font-size="130" font-weight="900" fill="#141414">LOKESH</text>
+  <rect x="74" y="268" width="470" height="120" fill="#7C3AED" transform="rotate(-1.5 309 328)"/>
+  <text x="104" y="360" font-family="Arial Black, Arial, sans-serif" font-size="110" font-weight="900" fill="#FFFFFF" transform="rotate(-1.5 309 328)">VERSE</text>
+  <text x="84" y="470" font-family="Arial, sans-serif" font-size="34" font-weight="700" fill="#141414">NOTES, BUT MAKE THEM BRUTAL.</text>
+  <rect x="80" y="500" width="430" height="52" fill="#FFD43B" stroke="#141414" stroke-width="5"/>
+  <text x="100" y="536" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#141414">STUDENT BUILT • PUBLIC NOTES • 2026</text>
+</svg>

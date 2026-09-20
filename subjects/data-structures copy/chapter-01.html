@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- ═══ CHAPTER SEO — change these lines per chapter ═══ -->
+  <title>Chapter 01 — Introduction to Data Structures | LOKESHVERSE</title>
+  <meta name="description" content="Chapter 01 of Data Structures: what data structures are, why they matter, how they are classified, and your first look at arrays." />
+  <meta property="og:title" content="Chapter 01 — Introduction to Data Structures | LOKESHVERSE" />
+  <meta property="og:description" content="What data structures are, why they matter, and how they are classified — full notes by Lokesh." />
+  <!-- ════════════════════════════════════════════════════ -->
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="../../assets/og-cover.svg" />
+
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../css/style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">SKIP TO CONTENT</a>
+  <div class="progress-bar" aria-hidden="true"></div>
+
+  <!-- =========================
+       HEADER (same on every page)
+  ========================= -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="../../index.html" aria-label="LOKESHVERSE home">
+        <span class="logo-mark">L</span>
+        <span>LOKESH<span class="logo-verse">VERSE</span></span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a class="nav-link" href="../../index.html">HOME</a>
+        <a class="nav-link active" href="../../index.html#explore">NOTES</a>
+        <a class="nav-link" href="../../search.html">SEARCH</a>
+        <a class="nav-link" href="../../about.html">ABOUT</a>
+      </nav>
+      <button class="nav-toggle" aria-expanded="false" aria-label="Toggle menu">☰</button>
+    </div>
+  </header>
+
+  <main id="main" class="container">
+    <!-- =========================
+         BREADCRUMB
+    ========================= -->
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="../../index.html">HOME</a>
+      <span class="crumb-sep" aria-hidden="true">/</span>
+      <a href="index.html">DATA STRUCTURES</a>
+      <span class="crumb-sep" aria-hidden="true">/</span>
+      <span class="crumb-current">CHAPTER 01</span>
+    </nav>
+
+    <!-- =========================
+         CHAPTER HEADER
+         ✏️ EDIT: number, title, meta, note-type tags
+    ========================= -->
+    <header class="chapter-header">
+      <span class="chapter-kicker">CHAPTER 01</span>
+      <h1 class="chapter-title">INTRODUCTION TO <span class="title-mark">DATA STRUCTURES</span></h1>
+      <p class="chapter-meta">DATA STRUCTURES • SEMESTER 01</p>
+      <div class="tag-row">
+        <span class="tag nt-full">FULL NOTES</span>
+        <span class="tag tag-white">~10 MIN READ</span>
+      </div>
+    </header>
+
+    <!-- =========================
+         NOTES CONTENT
+         ✏️ Everything below is the actual chapter.
+         Available boxes:
+           .definition-box  .important-box  .example-box
+           .keypoint-box    .remember-box   .formula-block
+           .code-block      .table-scroll + .brutal-table
+         Each uses: <span class="callout-label">LABEL</span>
+    ========================= -->
+    <div class="chapter-body">
+
+      <p>
+        Before we write a single line of code, we need to answer one question:
+        <strong>how do we keep data so our program can actually use it well?</strong>
+        That's the whole game of this chapter — and honestly, of this entire subject.
+      </p>
+
+      <!-- ---------- 1.1 ---------- -->
+      <h2 id="what-is-a-data-structure">1.1 What is a Data Structure?</h2>
+      <p>
+        A data structure is a way of organizing and storing data so that it can be
+        accessed and modified efficiently. Think of it as the difference between
+        dumping all your clothes in one pile versus sorting them into drawers —
+        same clothes, very different time to find a sock.
+      </p>
+
+      <div class="definition-box callout">
+        <span class="callout-label">DEFINITION</span>
+        <p>
+          A <strong>data structure</strong> is a specialized format for organizing,
+          storing and managing data in a computer so that it can be used
+          <strong>efficiently</strong> — efficient in both <strong>time</strong>
+          (how fast operations run) and <strong>space</strong> (how much memory is used).
+        </p>
+      </div>
+
+      <p>
+        Every program you have ever used — a phone dialer, a game, Instagram —
+        is really just <strong>data + operations on that data</strong>. The structure
+        you choose decides how cheaply those operations run.
+      </p>
+
+      <!-- ---------- 1.2 ---------- -->
+      <h2 id="why-do-we-need-data-structures">1.2 Why Do We Need Data Structures?</h2>
+      <p>
+        As the amount of data grows, poorly organized data makes programs painfully slow.
+        Structured data lets us design operations that scale.
+      </p>
+
+      <div class="important-box callout">
+        <span class="callout-label">IMPORTANT</span>
+        <p>
+          Choosing the right data structure can be the difference between a program
+          that finishes in <strong>seconds</strong> and one that takes
+          <strong>hours</strong>. Structure choice is a design decision, not an afterthought.
+        </p>
+      </div>
+
+      <div class="example-box callout">
+        <span class="callout-label">EXAMPLE</span>
+        <p>
+          <strong>Phone contacts.</strong> If your phone stored 5,000 contacts in one
+          unsorted pile, finding "Aarav" would mean scanning up to 5,000 names every time.
+          Instead, contacts are kept <strong>sorted alphabetically</strong>, so the phone
+          jumps straight to the "A" section. Same data — smarter structure — instant result.
+        </p>
+      </div>
+
+      <!-- ---------- 1.3 ---------- -->
+      <h2 id="classification-of-data-structures">1.3 Classification of Data Structures</h2>
+      <p>
+        Data structures come in a family tree. At the top level we split them into
+        <strong>primitive</strong> (built into the language) and
+        <strong>derived</strong> (built from primitives). Derived structures are
+        further split by how their elements are arranged:
+        <strong>linear</strong> (one after another) or <strong>non-linear</strong> (hierarchical / connected).
+      </p>
+
+      <div class="table-scroll">
+        <table class="brutal-table">
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th>Examples</th>
+              <th>Core Idea</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Primitive</strong></td>
+              <td>int, float, char, boolean</td>
+              <td>Single values, built into the language.</td>
+            </tr>
+            <tr>
+              <td><strong>Derived → Linear</strong></td>
+              <td>Array, Linked List, Stack, Queue</td>
+              <td>Elements arranged sequentially, one after another.</td>
+            </tr>
+            <tr>
+              <td><strong>Derived → Non-Linear</strong></td>
+              <td>Tree, Graph</td>
+              <td>Elements connected hierarchically or in networks.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="keypoint-box callout">
+        <span class="callout-label">KEY POINT</span>
+        <ul>
+          <li><strong>Linear:</strong> traversal visits elements in one sequence (e.g. array index 0 → 1 → 2…).</li>
+          <li><strong>Non-linear:</strong> one element can connect to many (e.g. a tree node with children).</li>
+        </ul>
+      </div>
+
+      <!-- ---------- 1.4 ---------- -->
+      <h2 id="arrays-your-first-data-structure">1.4 Arrays — Your First Data Structure</h2>
+      <p>
+        An <strong>array</strong> stores elements of the same type in
+        <strong>contiguous memory locations</strong>. Because the memory is
+        continuous, the address of any element can be computed directly —
+        which is why accessing <code style="font-family: var(--font-mono); background:#fff; border:2px solid var(--ink); padding:1px 6px;">A[i]</code>
+        takes the same time no matter how big the array is.
+      </p>
+
+      <div class="formula-block callout">
+        <span class="callout-label">FORMULA</span>
+        <p class="formula">Loc(A[i]) = Base(A) + (i − L) × W</p>
+        <p class="formula-note">
+          Base(A) = starting address • i = index • L = lower bound (often 0) • W = size of one element in bytes
+        </p>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-lang">PYTHON — ARRAY BASICS</span>
+          <button class="copy-btn" type="button">COPY CODE</button>
+        </div>
+        <pre><code><span class="tok-c"># an array (list) of marks — same kind of data together</span>
+marks = [<span class="tok-n">78</span>, <span class="tok-n">91</span>, <span class="tok-n">64</span>, <span class="tok-n">88</span>]
+
+<span class="tok-c"># ACCESS — jump straight to an index, O(1)</span>
+<span class="tok-f">print</span>(marks[<span class="tok-n">2</span>])        <span class="tok-c"># 64</span>
+
+<span class="tok-c"># UPDATE — overwrite a value at an index</span>
+marks[<span class="tok-n">0</span>] = <span class="tok-n">85</span>
+
+<span class="tok-c"># INSERT at the end — cheap</span>
+marks.append(<span class="tok-n">72</span>)
+
+<span class="tok-c"># TRAVERSAL — visit every element once</span>
+<span class="tok-k">for</span> m <span class="tok-k">in</span> marks:
+    <span class="tok-f">print</span>(m, end=<span class="tok-s">" "</span>)   <span class="tok-c"># 85 91 64 88 72</span></code></pre>
+      </div>
+
+      <div class="remember-box callout">
+        <span class="callout-label">REMEMBER</span>
+        <p>
+          Arrays give <strong>fast access</strong> (indexing is instant) but
+          <strong>slow insertion/deletion in the middle</strong> — elements must be
+          shifted. No structure is "best"; each is a trade-off. We fix the shifting
+          problem later with <strong>linked lists</strong>.
+        </p>
+      </div>
+
+      <!-- ---------- 1.5 ---------- -->
+      <h2 id="quick-revision">1.5 Quick Revision</h2>
+      <p>Five lines to re-read the night before the exam:</p>
+
+      <div class="revision-grid">
+        <div class="note-box">
+          <h4>DEFINITION</h4>
+          <p>Data structure = organized storage for efficient access &amp; modification.</p>
+        </div>
+        <div class="note-box">
+          <h4>WHY</h4>
+          <p>Right structure → fast programs even with huge data.</p>
+        </div>
+        <div class="note-box">
+          <h4>TYPES</h4>
+          <p>Primitive vs derived. Linear vs non-linear.</p>
+        </div>
+        <div class="note-box">
+          <h4>ARRAYS</h4>
+          <p>Contiguous memory • O(1) access • costly middle inserts.</p>
+        </div>
+        <div class="note-box">
+          <h4>FORMULA</h4>
+          <p style="font-family: var(--font-mono); font-size: 0.85rem;">Loc(A[i]) = Base + (i − L) × W</p>
+        </div>
+      </div>
+
+      <div class="important-box callout">
+        <span class="callout-label">EXAM ALERT</span>
+        <p>
+          "Define data structure and classify it with a diagram" is a classic
+          5-marker. Memorize the classification table from §1.3 — it carries full marks.
+        </p>
+      </div>
+    </div>
+
+    <!-- =========================
+         CHAPTER NAVIGATION
+         ✏️ Update hrefs + disable states per chapter:
+         • first chapter → prev disabled
+         • last published chapter → next disabled
+    ========================= -->
+    <nav class="chapter-nav" aria-label="Chapter navigation">
+      <span class="brutal-button btn-white btn-disabled" aria-disabled="true">← PREVIOUS CHAPTER</span>
+      <a class="brutal-button btn-black nav-center" href="index.html">☰ BACK TO SUBJECT</a>
+      <span class="brutal-button btn-white btn-disabled nav-next" aria-disabled="true">NEXT CHAPTER →</span>
+    </nav>
+  </main>
+
+  <!-- =========================
+       FOOTER (same on every page)
+  ========================= -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <section class="footer-block">
+        <h3 class="footer-title">LIVE VISITORS</h3>
+        <p class="visitors-pill">
+          <span class="visitor-dot" data-visitor-dot></span>
+          LIVE VISITORS:&nbsp;<strong data-live-visitors>—</strong>
+        </p>
+        <p class="footer-note" data-visitor-note></p>
+      </section>
+
+      <section class="footer-block">
+        <h3 class="footer-title">BUILDER</h3>
+        <p class="footer-builder">BUILT BY <span class="hl">LOKESH</span></p>
+        <p>A personal digital notebook that accidentally became a public library. Handwritten HTML, zero frameworks, all heart.</p>
+      </section>
+
+      <section class="footer-block">
+        <h3 class="footer-title">🎧 LISTENING WHILE BUILDING THIS</h3>
+        <!-- ⚙️ SPOTIFY CONFIG — swap the URL in src below with your playlist/track -->
+        <div class="spotify-wrap">
+          <iframe
+            src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M?utm_source=generator&theme=0"
+            height="152"
+            allow="autoplay=0; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy"
+            title="Spotify playlist Lokesh listens to while building LOKESHVERSE"></iframe>
+        </div>
+      </section>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container">
+        <span>© <span data-year>2026</span> LOKESHVERSE • NOTES BUT BRUTAL</span>
+        <span><a href="../../index.html">HOME</a> • <a href="../../search.html">SEARCH</a> • <a href="../../about.html">ABOUT</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" aria-label="Back to top">↑</button>
+
+  <script src="../../js/main.js" defer></script>
+  <script src="../../js/visitors.js" defer></script>
+</body>
+</html>

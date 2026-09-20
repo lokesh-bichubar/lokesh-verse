@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Search — LOKESHVERSE</title>
+  <meta name="description" content="Search the LOKESHVERSE notes library across subjects, chapters, topics and keywords." />
+  <meta property="og:title" content="Search — LOKESHVERSE" />
+  <meta property="og:description" content="Find notes across subjects, chapters, topics and keywords." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/og-cover.svg" />
+
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">SKIP TO CONTENT</a>
+  <div class="progress-bar" aria-hidden="true"></div>
+
+  <!-- =========================
+       HEADER (same on every page)
+  ========================= -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="index.html" aria-label="LOKESHVERSE home">
+        <span class="logo-mark">L</span>
+        <span>LOKESH<span class="logo-verse">VERSE</span></span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a class="nav-link" href="index.html">HOME</a>
+        <a class="nav-link" href="index.html#explore">NOTES</a>
+        <a class="nav-link active" href="search.html">SEARCH</a>
+        <a class="nav-link" href="about.html">ABOUT</a>
+      </nav>
+      <button class="nav-toggle" aria-expanded="false" aria-label="Toggle menu">☰</button>
+    </div>
+  </header>
+
+  <main id="main" class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html">HOME</a>
+      <span class="crumb-sep" aria-hidden="true">/</span>
+      <span class="crumb-current">SEARCH</span>
+    </nav>
+
+    <header class="page-header">
+      <h1>SEARCH THE <span class="hl-pink">VERSE</span></h1>
+      <p>Search across subject names, chapter names, topics, keywords and note content. Filters narrow it down by university, course, semester or subject.</p>
+    </header>
+
+    <!-- =========================
+         SEARCH UI
+    ========================= -->
+    <section class="section" style="padding-top: 0;">
+      <div class="brutal-card search-bar bg-white" style="transform: rotate(-0.3deg);">
+        <label class="skip-link" for="search-input">Search notes</label>
+        <input
+          id="search-input"
+          class="search-input"
+          type="search"
+          placeholder='Try "binary tree", "array", "revision"…'
+          autocomplete="off" />
+        <button id="search-button" class="brutal-button btn-pink" type="button">SEARCH</button>
+      </div>
+
+      <!-- filters (populated automatically from js/search.js index) -->
+      <div class="filter-row">
+        <select id="filter-university" class="filter-select" aria-label="Filter by university"></select>
+        <select id="filter-course" class="filter-select" aria-label="Filter by course"></select>
+        <select id="filter-semester" class="filter-select" aria-label="Filter by semester"></select>
+        <select id="filter-subject" class="filter-select" aria-label="Filter by subject"></select>
+      </div>
+
+      <div class="chips">
+        <span class="chips-label">TRY:</span>
+        <button class="chip" type="button" data-chip="data structures">DATA STRUCTURES</button>
+        <button class="chip" type="button" data-chip="array">ARRAY</button>
+        <button class="chip" type="button" data-chip="classification">CLASSIFICATION</button>
+        <button class="chip" type="button" data-chip="revision">REVISION</button>
+        <button class="chip" type="button" data-chip="formula">FORMULA</button>
+      </div>
+
+      <p class="results-meta" id="results-meta" aria-live="polite"></p>
+      <div id="search-results"></div>
+    </section>
+  </main>
+
+  <!-- =========================
+       FOOTER (same on every page)
+  ========================= -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <section class="footer-block">
+        <h3 class="footer-title">LIVE VISITORS</h3>
+        <p class="visitors-pill">
+          <span class="visitor-dot" data-visitor-dot></span>
+          LIVE VISITORS:&nbsp;<strong data-live-visitors>—</strong>
+        </p>
+        <p class="footer-note" data-visitor-note></p>
+      </section>
+
+      <section class="footer-block">
+        <h3 class="footer-title">BUILDER</h3>
+        <p class="footer-builder">BUILT BY <span class="hl">LOKESH</span></p>
+        <p>A personal digital notebook that accidentally became a public library. Handwritten HTML, zero frameworks, all heart.</p>
+      </section>
+
+      <section class="footer-block">
+        <h3 class="footer-title">🎧 LISTENING WHILE BUILDING THIS</h3>
+        <!-- ⚙️ SPOTIFY CONFIG — swap the URL in src below with your playlist/track -->
+        <div class="spotify-wrap">
+          <iframe
+            src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M?utm_source=generator&theme=0"
+            height="152"
+            allow="autoplay=0; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy"
+            title="Spotify playlist Lokesh listens to while building LOKESHVERSE"></iframe>
+        </div>
+      </section>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container">
+        <span>© <span data-year>2026</span> LOKESHVERSE • NOTES BUT BRUTAL</span>
+        <span><a href="index.html">HOME</a> • <a href="search.html">SEARCH</a> • <a href="about.html">ABOUT</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" aria-label="Back to top">↑</button>
+
+  <script src="js/main.js" defer></script>
+  <script src="js/search.js" defer></script>
+  <script src="js/visitors.js" defer></script>
+</body>
+</html>

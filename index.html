@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LOKESHVERSE — Notes, but make them brutal.</title>
+  <meta name="description" content="LOKESHVERSE is a student-built public notes library by Lokesh — chapter-by-chapter notes in a colourful neo-brutalist design." />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="LOKESHVERSE — Notes, but make them brutal." />
+  <meta property="og:description" content="A student-built collection of notes, organized chapter by chapter." />
+  <meta property="og:image" content="assets/og-cover.svg" />
+
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">SKIP TO CONTENT</a>
+  <div class="progress-bar" aria-hidden="true"></div>
+
+  <!-- =========================
+       HEADER (same on every page)
+  ========================= -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="index.html" aria-label="LOKESHVERSE home">
+        <span class="logo-mark">L</span>
+        <span>LOKESH<span class="logo-verse">VERSE</span></span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a class="nav-link active" href="index.html">HOME</a>
+        <a class="nav-link" href="index.html#explore">NOTES</a>
+        <a class="nav-link" href="search.html">SEARCH</a>
+        <a class="nav-link" href="about.html">ABOUT</a>
+      </nav>
+      <button class="nav-toggle" aria-expanded="false" aria-label="Toggle menu">☰</button>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- =========================
+         HERO
+    ========================= -->
+    <section class="hero">
+      <div class="hero-shape shape-star float-a" style="top: 12%; right: 8%;" aria-hidden="true"></div>
+      <div class="hero-shape shape-circle float-b" style="top: 62%; right: 16%;" aria-hidden="true"></div>
+      <div class="hero-shape shape-square float-c" style="top: 24%; right: 26%;" aria-hidden="true"></div>
+      <div class="hero-shape shape-triangle float-b" style="bottom: 6%; left: 4%;" aria-hidden="true"></div>
+
+      <div class="container">
+        <h1 class="hero-title">LOKESH<span class="hero-highlight">VERSE</span></h1>
+        <p class="hero-sub">Notes, but make them <span class="hl-pink">brutal</span>.</p>
+        <blockquote class="hero-quote">
+          A student-built collection of notes, organized chapter by chapter.
+        </blockquote>
+        <div class="hero-actions">
+          <a class="brutal-button btn-pink" href="#explore">EXPLORE NOTES →</a>
+          <a class="brutal-button btn-white" href="search.html">🔍 SEARCH NOTES</a>
+        </div>
+        <span class="hero-label">STUDENT BUILT • PUBLIC NOTES • 2026</span>
+      </div>
+    </section>
+
+    <!-- marquee strip -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>★ DATA STRUCTURES <b>✦</b> CHAPTER BY CHAPTER <b>✦</b> STUDENT BUILT <b>✦</b> FREE FOREVER <b>✦</b> REVISION MODE ON <b>✦</b> NO PDFs JUST HTML <b>✦</b>&nbsp;</span>
+        <span>★ DATA STRUCTURES <b>✦</b> CHAPTER BY CHAPTER <b>✦</b> STUDENT BUILT <b>✦</b> FREE FOREVER <b>✦</b> REVISION MODE ON <b>✦</b> NO PDFs JUST HTML <b>✦</b>&nbsp;</span>
+      </div>
+    </div>
+
+    <!-- =========================
+         EXPLORE NOTES
+    ========================= -->
+    <section class="section" id="explore">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-kicker">THE LIBRARY</span>
+          <h2 class="section-title">EXPLORE <span class="alt-pink">NOTES</span></h2>
+        </div>
+
+        <!-- hierarchy explainer -->
+        <div class="hierarchy" aria-label="Notes hierarchy">
+          <span class="h-step">UNIVERSITY</span><span class="h-arrow" aria-hidden="true">→</span>
+          <span class="h-step">COURSE</span><span class="h-arrow" aria-hidden="true">→</span>
+          <span class="h-step">SEMESTER</span><span class="h-arrow" aria-hidden="true">→</span>
+          <span class="h-step">SUBJECT</span><span class="h-arrow" aria-hidden="true">→</span>
+          <span class="h-step">CHAPTER</span><span class="h-arrow" aria-hidden="true">→</span>
+          <span class="h-step">TOPIC</span>
+        </div>
+
+        <div class="explore-grid">
+          <!-- ═══════════════════════════════════════════
+               UNIVERSITY CARD — duplicate this whole
+               .brutal-card block for a new university
+          ═══════════════════════════════════════════ -->
+          <article class="brutal-card uni-card tilt-l">
+            <div class="uni-card-head">
+              <h3>QUANTUM UNIVERSITY</h3>
+            </div>
+            <div class="uni-card-body">
+              <div class="uni-meta">
+                <span class="tag tag-cyan">B.TECH CSE</span>
+                <span class="tag tag-yellow">SEMESTER 01</span>
+              </div>
+
+              <!-- subject rows inside a university card -->
+              <div class="subject-line">
+                <strong>Computational And Quantum Physics</strong>
+                <span class="subj-chip">1 CHAPTER</span>
+              </div>
+
+              <a class="brutal-button btn-purple" href="subjects/Computational & Quantum Physics/">VIEW SUBJECTS →</a>
+            </div>
+          </article>
+
+          <!-- coming soon placeholder -->
+          <article class="brutal-card dashed-card">
+            <h3>MORE DROPS SOON</h3>
+            <p>New universities, courses &amp; semesters get added as Lokesh keeps studying. 📚</p>
+          </article>
+        </div>
+
+        <!-- note types legend -->
+        <div style="margin-top: 48px;">
+          <div class="section-head" style="margin-bottom: 22px;">
+            <span class="section-kicker" style="background: var(--cyan);">HOW TO READ THE LIBRARY</span>
+            <h2 class="section-title" style="font-size: clamp(1.4rem, 3.4vw, 2.2rem);">NOTE TYPES</h2>
+          </div>
+          <div class="tag-row">
+            <span class="tag nt-full">FULL NOTES</span>
+            <span class="tag nt-short">SHORT NOTES</span>
+            <span class="tag nt-oneshot">ONE-SHOT REVISION</span>
+            <span class="tag nt-formula">FORMULA SHEET</span>
+            <span class="tag nt-questions">IMPORTANT QUESTIONS</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+         BUILT BY LOKESH
+    ========================= -->
+    <section class="section" id="about" style="padding-top: 20px;">
+      <div class="container">
+        <div class="brutal-card bg-white" style="padding: clamp(28px, 5vw, 56px);">
+          <div class="about-grid">
+            <div class="about-avatar" aria-hidden="true">
+              <img class="Image" src="lokesh.png" alt="Lokesh, the builder of LOKESHVERSE" />
+              <span class="avatar-sticker">King T'Challa aka Lokesh</span>
+            </div>
+            <div class="about-text">
+              <span class="section-kicker">THE BUILDER</span>
+              <h2 class="section-title" style="margin-bottom: 20px;">BUILT BY <span class="alt-purple">LOKESH</span></h2>
+              <p>Hi, I'm Lokesh — a Computer Science student who likes building things, participating in hackathons, and turning random ideas into something that actually works.</p>
+              <p>I originally built Lokeshverse to keep my own notes organized. Then I thought, <span class="hl-yellow">why keep them to myself?</span></p>
+              <p>So this became a public notes space where I can share what I'm learning, chapter by chapter.</p>
+              <div class="tag-row">
+                <span class="tag tag-cyan">B.TECH CSE</span>
+                <span class="tag tag-purple">BS DATA SCIENCE</span>
+                <span class="tag tag-orange">HACKATHONS</span>
+                <span class="tag tag-lime">AI • PYTHON</span>
+              </div>
+              <a class="brutal-button btn-black" href="about.html">MORE ABOUT ME →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- =========================
+       FOOTER (same on every page)
+  ========================= -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <section class="footer-block">
+        <h3 class="footer-title">LIVE VISITORS</h3>
+        <p class="visitors-pill">
+          <span class="visitor-dot" data-visitor-dot></span>
+          LIVE VISITORS:&nbsp;<strong data-live-visitors>—</strong>
+        </p>
+        <p class="footer-note" data-visitor-note></p>
+      </section>
+
+      <section class="footer-block">
+        <h3 class="footer-title">BUILDER</h3>
+        <p class="footer-builder">BUILT BY <span class="hl">LOKESH</span></p>
+        <p>A personal digital notebook that accidentally became a public library. Handwritten HTML, zero frameworks, all heart.</p>
+      </section>
+
+      <section class="footer-block">
+        <h3 class="footer-title">🎧 LISTENING WHILE BUILDING THIS</h3>
+        <!-- ═══════════════════════════════════════════════════
+             ⚙️ SPOTIFY CONFIG — replace the playlist/track URL
+             below with your own. Format:
+             https://open.spotify.com/embed/playlist/YOUR_ID  or
+             https://open.spotify.com/embed/track/YOUR_ID
+        ═══════════════════════════════════════════════════ -->
+        <div class="spotify-wrap">
+          <iframe
+            src="https://open.spotify.com/embed/playlist/37i9dQZF1DWWQRwui0ExPn?utm_source=generator&theme=0"
+            height="152"
+            allow="autoplay=0; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy"
+            title="Spotify playlist Lokesh listens to while building LOKESHVERSE"></iframe>
+        </div>
+      </section>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container">
+        <span>© <span data-year>2026</span> LOKESHVERSE • NOTES BUT BRUTAL</span>
+        <span><a href="index.html">HOME</a> • <a href="search.html">SEARCH</a> • <a href="about.html">ABOUT</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" aria-label="Back to top">↑</button>
+
+  <script src="js/main.js" defer></script>
+  <script src="js/visitors.js" defer></script>
+</body>
+</html>
